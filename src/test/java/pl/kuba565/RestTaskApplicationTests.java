@@ -1,4 +1,4 @@
-package pl.kuba565.restTask;
+package pl.kuba565;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
