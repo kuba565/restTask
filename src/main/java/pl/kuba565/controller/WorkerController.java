@@ -3,7 +3,7 @@ package pl.kuba565.controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.kuba565.model.Worker;
-import pl.kuba565.service.WorkerService;
+import pl.kuba565.service.Service;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.List;
 @RequestMapping("/")
 @Validated
 public class WorkerController implements Controller<Worker> {
-    private final WorkerService workerService;
+    private final Service<Worker> workerService;
 
-    public WorkerController(WorkerService workerService) {
+    public WorkerController(Service<Worker> workerService) {
         this.workerService = workerService;
     }
 

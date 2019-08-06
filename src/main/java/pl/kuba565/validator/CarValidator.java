@@ -2,12 +2,13 @@ package pl.kuba565.validator;
 
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
-import pl.kuba565.repository.CarRepository;
+import pl.kuba565.model.Car;
+import pl.kuba565.repository.Repository;
 
 public class CarValidator implements Validator {
-    private final CarRepository carRepository;
+    private final Repository<Car> carRepository;
 
-    public CarValidator(CarRepository carRepository) {
+    public CarValidator(Repository<Car> carRepository) {
         this.carRepository = carRepository;
     }
 

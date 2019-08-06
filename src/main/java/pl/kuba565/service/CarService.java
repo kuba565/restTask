@@ -5,17 +5,17 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import pl.kuba565.exception.ValidationException;
 import pl.kuba565.model.Car;
-import pl.kuba565.repository.CarRepository;
-import pl.kuba565.validator.CarValidator;
+import pl.kuba565.repository.Repository;
+import pl.kuba565.validator.Validator;
 
 import java.util.List;
 
 @Transactional
 public class CarService implements Service<Car> {
-    private final CarValidator carValidator;
-    private final CarRepository carRepository;
+    private final Validator carValidator;
+    private final Repository<Car> carRepository;
 
-    CarService(CarRepository carRepository, CarValidator carValidator) {
+    CarService(Repository<Car> carRepository, Validator carValidator) {
         this.carRepository = carRepository;
         this.carValidator = carValidator;
     }

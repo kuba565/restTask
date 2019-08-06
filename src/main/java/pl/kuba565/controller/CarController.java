@@ -4,6 +4,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.kuba565.model.Car;
 import pl.kuba565.service.CarService;
+import pl.kuba565.service.Service;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 @RequestMapping("/")
 @Validated
 public class CarController implements Controller<Car> {
-    private final CarService carService;
+    private final Service<Car> carService;
 
     public CarController(CarService carService) {
         this.carService = carService;

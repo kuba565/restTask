@@ -14,4 +14,6 @@ public interface Repository<T> {
     Boolean checkIfExists(Long id);
 
     T findById(Long id);
+
+    Long countAssignedWorkers(Long id);
 }

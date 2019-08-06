@@ -5,17 +5,17 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
 import pl.kuba565.exception.ValidationException;
 import pl.kuba565.model.Worker;
-import pl.kuba565.repository.WorkerRepository;
-import pl.kuba565.validator.WorkerValidator;
+import pl.kuba565.repository.Repository;
+import pl.kuba565.validator.Validator;
 
 import java.util.List;
 
 @Transactional
 public class WorkerService implements Service<Worker> {
-    private final WorkerValidator workerValidator;
-    private final WorkerRepository workerRepository;
+    private final Validator workerValidator;
+    private final Repository<Worker> workerRepository;
 
-    WorkerService(WorkerRepository workerRepository, WorkerValidator workerValidator) {
+    WorkerService(Repository<Worker> workerRepository, Validator workerValidator) {
         this.workerRepository = workerRepository;
         this.workerValidator = workerValidator;
     }

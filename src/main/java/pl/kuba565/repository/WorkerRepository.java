@@ -43,4 +43,9 @@ public class WorkerRepository implements Repository<Worker> {
     public Worker findById(Long id) {
         return entityManager.createNamedQuery("Worker.findById", Worker.class).setParameter("id", id).getSingleResult();
     }
+
+    @Override
+    public Long countAssignedWorkers(Long id) {
+        return null;
+    }
 }
