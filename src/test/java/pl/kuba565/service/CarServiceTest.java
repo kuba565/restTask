@@ -23,7 +23,7 @@ public class CarServiceTest extends TestBed {
     @Test
     public void shouldFindAllCars() {
         //given
-        List<Car> expected = List.of(
+        final List<Car> expected = List.of(
                 new Car(1L, 1500, 5, "PO6HH12"),
                 new Car(2L, 1500, 5, "PO6HH12"),
                 new Car(3L, 500, 4, "PO121TJ")
@@ -40,7 +40,7 @@ public class CarServiceTest extends TestBed {
     public void shouldCreateCar() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        Car car = new Car(11, 5, "AVBASD2");
+        final Car car = new Car(11, 5, "AVBASD2");
 
         //when
         Long carId = carService.create(car);

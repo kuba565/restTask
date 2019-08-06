@@ -55,7 +55,7 @@ public class WorkerControllerTest extends TestBed {
     @Test
     public void shouldPut() {
         //given
-        Long workerId = 1L;
+        final Long workerId = 1L;
         final Worker expectedWorker = new Worker(workerId,  "22222", "AAAA", "BBBB");
 
         //when
@@ -82,7 +82,7 @@ public class WorkerControllerTest extends TestBed {
     @Test
     public void shouldDeleteById() {
         //when
-        Long workerId = 1L;
+        final Long workerId = 1L;
         workerController.deleteById(workerId);
 
         //then

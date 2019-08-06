@@ -41,7 +41,7 @@ public class WorkerServiceTest extends TestBed {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-        Worker worker = new Worker("1", "g", "a");
+        final Worker worker = new Worker("1", "g", "a");
 
         //when
         Long workerId = workerService.create(worker);
@@ -60,7 +60,7 @@ public class WorkerServiceTest extends TestBed {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
-        Worker worker = new Worker(1L, "1", "g", "a");
+        final Worker worker = new Worker(1L, "1", "g", "a");
 
         //when
         worker.setName("John");
@@ -78,7 +78,7 @@ public class WorkerServiceTest extends TestBed {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-        Long workerId = 1L;
+        final Long workerId = 1L;
 
         //when
         transaction.begin();
@@ -95,7 +95,7 @@ public class WorkerServiceTest extends TestBed {
     @Test
     public void shouldThrowValidationExceptionOnDeleteWorkerAssignedToCar() {
         //given
-        Long workerId = 9999L;
+        final Long workerId = 9999L;
 
         //then
         Assertions.assertThrows(ValidationException.class, () -> workerService.deleteById(workerId));

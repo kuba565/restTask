@@ -25,10 +25,11 @@ public class CarControllerTest extends TestBed {
     @Test
     public void shouldFindById() {
         //given
-        final Car expectedCar = new Car(1L, 1500, 5, "PO6HH12", null);
+        final Long carId = 1L;
+        final Car expectedCar = new Car(carId, 1500, 5, "PO6HH12", null);
 
         //when
-        Car car = carController.findById(1L);
+        Car car = carController.findById(carId);
 
         //then
         Assertions.assertEquals(expectedCar, car);
@@ -51,7 +52,7 @@ public class CarControllerTest extends TestBed {
     @Test
     public void shouldPut() {
         //given
-        Long carId = 1L;
+        final Long carId = 1L;
         final Car expectedCar = new Car(carId, 2333, 2, "ASF123", null);
 
         //when
@@ -76,7 +77,7 @@ public class CarControllerTest extends TestBed {
     @Test
     public void shouldDeleteById() {
         //when
-        Long carId = 1L;
+        final Long carId = 1L;
         carController.deleteById(carId);
 
         //then
