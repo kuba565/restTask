@@ -10,12 +10,12 @@ import pl.kuba565.validator.WorkerValidator;
 @Configuration
 public class ServiceConfig {
     @Bean
-    CarService carService(CarValidator carValidator, CarRepository carRepository) {
+    public CarService carService(CarValidator carValidator, CarRepository carRepository) {
         return new CarService(carRepository, carValidator);
     }
 
     @Bean
-    WorkerService workerService(WorkerValidator workerValidator, WorkerRepository workerRepository) {
+    public WorkerService workerService(WorkerValidator workerValidator, WorkerRepository workerRepository) {
         return new WorkerService(workerRepository, workerValidator);
     }
 }

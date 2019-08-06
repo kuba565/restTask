@@ -8,12 +8,12 @@ import pl.kuba565.repository.WorkerRepository;
 @Configuration
 public class ValidatorConfig {
     @Bean
-    CarValidator carValidator(CarRepository carRepository) {
+    public CarValidator carValidator(CarRepository carRepository) {
         return new CarValidator(carRepository);
     }
 
     @Bean
-    WorkerValidator workerValidator(WorkerRepository workerRepository) {
+    public WorkerValidator workerValidator(WorkerRepository workerRepository) {
         return new WorkerValidator(workerRepository);
     }
 }

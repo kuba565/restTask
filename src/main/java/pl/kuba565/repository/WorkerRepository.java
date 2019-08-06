@@ -14,21 +14,21 @@ public class WorkerRepository implements Repository<Worker> {
     }
 
     public Worker update(Worker worker) {
-        Worker newWorker = new Worker(worker.getId(), worker.getCar(), worker.getPesel(), worker.getName(), worker.getSurname());
+        final Worker newWorker = new Worker(worker.getId(), worker.getCar(), worker.getPesel(), worker.getName(), worker.getSurname());
         entityManager.merge(newWorker);
         entityManager.flush();
         return newWorker;
     }
 
     public Long create(Worker worker) {
-        Worker newWorker = new Worker(worker.getCar(), worker.getPesel(), worker.getName(), worker.getSurname());
+        final Worker newWorker = new Worker(worker.getCar(), worker.getPesel(), worker.getName(), worker.getSurname());
         entityManager.persist(newWorker);
         entityManager.flush();
         return newWorker.getId();
     }
 
     public List<Worker> findAll() {
-        TypedQuery<Worker> carTypedQuery = entityManager.createNamedQuery("Worker.findAll", Worker.class);
+        final TypedQuery<Worker> carTypedQuery = entityManager.createNamedQuery("Worker.findAll", Worker.class);
         return carTypedQuery.getResultList();
     }
 

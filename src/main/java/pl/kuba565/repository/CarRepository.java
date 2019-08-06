@@ -14,21 +14,21 @@ public class CarRepository implements Repository<Car> {
     }
 
     public Car update(Car car) {
-        Car newCar = new Car(car.getId(), car.getWeight(), car.getNumberOfSeats(), car.getRegistrationNumber());
+        final Car newCar = new Car(car.getId(), car.getWeight(), car.getNumberOfSeats(), car.getRegistrationNumber());
         entityManager.merge(newCar);
         entityManager.flush();
         return newCar;
     }
 
     public Long create(Car car) {
-        Car newCar = new Car(car.getWeight(), car.getNumberOfSeats(), car.getRegistrationNumber(), car.getLog());
+        final Car newCar = new Car(car.getWeight(), car.getNumberOfSeats(), car.getRegistrationNumber(), car.getLog());
         entityManager.persist(newCar);
         entityManager.flush();
         return newCar.getId();
     }
 
     public List<Car> findAll() {
-        TypedQuery<Car> carTypedQuery = entityManager.createNamedQuery("Car.findAll", Car.class);
+        final TypedQuery<Car> carTypedQuery = entityManager.createNamedQuery("Car.findAll", Car.class);
         return carTypedQuery.getResultList();
     }
 

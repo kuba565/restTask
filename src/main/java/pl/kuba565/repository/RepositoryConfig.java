@@ -8,12 +8,12 @@ import javax.persistence.EntityManager;
 @Configuration
 public class RepositoryConfig {
     @Bean
-    CarRepository carRepository(EntityManager entityManager) {
+    public CarRepository carRepository(EntityManager entityManager) {
         return new CarRepository(entityManager);
     }
 
     @Bean
-    WorkerRepository workerRepository(EntityManager entityManager) {
+    public WorkerRepository workerRepository(EntityManager entityManager) {
         return new WorkerRepository(entityManager);
     }
 }

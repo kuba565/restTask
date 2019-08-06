@@ -30,7 +30,8 @@ public class CarController implements Controller<Car> {
     }
 
     @PostMapping("car")
-    public @ResponseBody Long post(@RequestBody Car newCar) {
+    public @ResponseBody
+    Long post(@RequestBody Car newCar) {
         return carService.create(newCar);
     }
 
