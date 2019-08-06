@@ -45,7 +45,7 @@ public class WorkerRepository implements Repository<Worker> {
     }
 
     @Override
-    public Long countAssignedWorkers(Long id) {
+    public Long countRelationships(Long id) {
         return null;
     }
 }

@@ -20,7 +20,7 @@ public class CarValidator implements Validator {
             return errors;
         }
 
-        Long assignedWorkersCount = carRepository.countAssignedWorkers(id);
+        Long assignedWorkersCount = carRepository.countRelationships(id);
 
         if (assignedWorkersCount > 0) {
             errors.reject(String.format("Car with given id has %s worker(s) assigned", assignedWorkersCount));

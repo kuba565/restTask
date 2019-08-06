@@ -15,5 +15,5 @@ public interface Repository<T> {
 
     T findById(Long id);
 
-    Long countAssignedWorkers(Long id);
+    Long countRelationships(Long id);
 }

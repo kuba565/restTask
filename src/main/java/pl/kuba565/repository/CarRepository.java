@@ -40,7 +40,7 @@ public class CarRepository implements Repository<Car> {
         return entityManager.createNamedQuery("Car.checkIfExists", Long.class).setParameter("id", id).getSingleResult() > 0;
     }
 
-    public Long countAssignedWorkers(Long id) {
+    public Long countRelationships(Long id) {
         return entityManager.createNamedQuery("Worker.countAssignedWorkers", Long.class).setParameter("id", id).getSingleResult();
     }
 
