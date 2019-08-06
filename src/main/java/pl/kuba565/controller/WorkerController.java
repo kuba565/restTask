@@ -31,8 +31,8 @@ public class WorkerController implements Controller<Worker> {
 
     @PostMapping("worker")
     public @ResponseBody
-    void post(Worker newWorker) {
-        workerService.create(newWorker);
+    Long post(Worker newWorker) {
+        return workerService.create(newWorker);
     }
 
     @PutMapping("worker")

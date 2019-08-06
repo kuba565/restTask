@@ -51,8 +51,4 @@ public class Worker {
         this.surname = surname;
         this.car = car;
     }
-
-    public Worker(Long id) {
-        this.id = id;
-    }
 }

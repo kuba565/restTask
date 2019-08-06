@@ -10,7 +10,7 @@ public interface Controller<T> {
 
     List<T> findAll();
 
-    void post(T newT);
+    Long post(T newT);
 
     T put(T newT);
 

@@ -18,27 +18,31 @@ public class CarController implements Controller<Car> {
     }
 
     @GetMapping("car/{id}")
-    public @ResponseBody Car findById(@PathVariable(value = "id") @NotNull Long id) {
+    public @ResponseBody
+    Car findById(@PathVariable(value = "id") @NotNull Long id) {
         return carService.findById(id);
     }
 
     @GetMapping("car")
-    public @ResponseBody List<Car> findAll() {
+    public @ResponseBody
+    List<Car> findAll() {
         return carService.findAll();
     }
 
     @PostMapping("car")
-    public @ResponseBody void post(@RequestBody Car newCar) {
-        carService.create(newCar);
+    public @ResponseBody Long post(@RequestBody Car newCar) {
+        return carService.create(newCar);
     }
 
     @PutMapping("car")
-    public @ResponseBody Car put(@RequestBody Car newCar) {
+    public @ResponseBody
+    Car put(@RequestBody Car newCar) {
         return carService.update(newCar);
     }
 
     @DeleteMapping("car/{id}")
-    public @ResponseBody void deleteById(@PathVariable(value = "id") @NotNull Long id) {
+    public @ResponseBody
+    void deleteById(@PathVariable(value = "id") @NotNull Long id) {
         carService.deleteById(id);
     }
 }
