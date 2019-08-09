@@ -15,10 +15,10 @@ public class Log {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Lob
-    private String log;
+    private String value;
 
-    public Log(String log) {
-        this.log = log;
+    public Log(String value) {
+        this.value = value;
     }
 
     public Log(Long id) {

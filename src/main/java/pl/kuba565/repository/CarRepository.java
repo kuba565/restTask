@@ -35,7 +35,7 @@ public class CarRepository implements Repository<Car> {
                 .executeUpdate();
     }
 
-    public Boolean checkIfExists(Long id) {
+    public boolean checkIfExists(Long id) {
         return entityManager
                 .createNamedQuery("Car.checkIfExists", Long.class)
                 .setParameter("id", id)

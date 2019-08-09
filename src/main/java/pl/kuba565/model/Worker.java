@@ -10,13 +10,11 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-@NamedQueries({
-        @NamedQuery(name = "Worker.countAssignedWorkers", query = "SELECT COUNT(*) FROM Worker WHERE car.id = :id"),
-        @NamedQuery(name = "Worker.deleteById", query = "DELETE FROM Worker WHERE id = :id"),
-        @NamedQuery(name = "Worker.checkIfExists", query = "SELECT COUNT(*) FROM Car WHERE id = :id"),
-        @NamedQuery(name = "Worker.findById", query = "SELECT new Worker(w.id, w.pesel, w.name, w.surname, w.car) FROM Worker w WHERE w.id = :id"),
-        @NamedQuery(name = "Worker.findAll", query = "select new Worker(w.id, w.pesel, w.name, w.surname, w.car) from Worker w")
-})
+@NamedQuery(name = "Worker.countAssignedWorkers", query = "SELECT COUNT(*) FROM Worker WHERE car.id = :id")
+@NamedQuery(name = "Worker.deleteById", query = "DELETE FROM Worker WHERE id = :id")
+@NamedQuery(name = "Worker.checkIfExists", query = "SELECT COUNT(*) FROM Car WHERE id = :id")
+@NamedQuery(name = "Worker.findById", query = "SELECT new Worker(w.id, w.pesel, w.name, w.surname, w.car) FROM Worker w WHERE w.id = :id")
+@NamedQuery(name = "Worker.findAll", query = "select new Worker(w.id, w.pesel, w.name, w.surname, w.car) from Worker w")
 public class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

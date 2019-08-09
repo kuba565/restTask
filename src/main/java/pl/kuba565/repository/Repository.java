@@ -11,7 +11,7 @@ public interface Repository<T> {
 
     void deleteById(Long id);
 
-    Boolean checkIfExists(Long id);
+    boolean checkIfExists(Long id);
 
     T findById(Long id);
 

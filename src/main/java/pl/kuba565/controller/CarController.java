@@ -32,14 +32,14 @@ public class CarController implements Controller<Car> {
 
     @PostMapping("car")
     public @ResponseBody
-    Long post(@RequestBody Car newCar) {
-        return carService.create(newCar);
+    Long post(@RequestBody Car car) {
+        return carService.create(car);
     }
 
     @PutMapping("car")
     public @ResponseBody
-    Car put(@RequestBody Car newCar) {
-        return carService.update(newCar);
+    void put(@RequestBody Car car) {
+        carService.update(car);
     }
 
     @DeleteMapping("car/{id}")

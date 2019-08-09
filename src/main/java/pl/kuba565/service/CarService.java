@@ -32,7 +32,7 @@ public class CarService implements Service<Car> {
         Errors errors = carValidator.validateOnDelete(id);
 
         List<ObjectError> allErrors = errors.getAllErrors();
-        if (allErrors.size() > 0) {
+        if (!allErrors.isEmpty()) {
             throw new ValidationException(allErrors);
         }
 

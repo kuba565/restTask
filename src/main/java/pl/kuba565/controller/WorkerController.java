@@ -31,14 +31,14 @@ public class WorkerController implements Controller<Worker> {
 
     @PostMapping("worker")
     public @ResponseBody
-    Long post(Worker newWorker) {
-        return workerService.create(newWorker);
+    Long post(Worker worker) {
+        return workerService.create(worker);
     }
 
     @PutMapping("worker")
     public @ResponseBody
-    Worker put(Worker newWorker) {
-        return workerService.update(newWorker);
+    void put(Worker worker) {
+        workerService.update(worker);
     }
 
     @DeleteMapping("worker/{id}")

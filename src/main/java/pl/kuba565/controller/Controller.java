@@ -12,7 +12,7 @@ public interface Controller<T> {
 
     Long post(T newT);
 
-    T put(T newT);
+    void put(T newT);
 
     void deleteById(@PathVariable(value = "id") @NotNull Long id);
 }

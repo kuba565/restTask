@@ -37,7 +37,7 @@ public class WorkerRepository implements Repository<Worker> {
                 .executeUpdate();
     }
 
-    public Boolean checkIfExists(Long id) {
+    public boolean checkIfExists(Long id) {
         return entityManager
                 .createNamedQuery("Worker.checkIfExists", Long.class)
                 .setParameter("id", id)

@@ -10,12 +10,10 @@ import javax.persistence.*;
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
-@NamedQueries({
-        @NamedQuery(name = "Car.findAll", query = "select new Car(c.id, c.weight, c.numberOfSeats, c.registrationNumber) from Car c"),
-        @NamedQuery(name = "Car.deleteById", query = "DELETE FROM Car WHERE id = :id"),
-        @NamedQuery(name = "Car.checkIfExists", query = "SELECT COUNT(*) FROM Car WHERE id = :id"),
-        @NamedQuery(name = "Car.findById", query = "select new Car(c.id, c.weight, c.numberOfSeats, c.registrationNumber) from Car c where c.id=:id")
-})
+@NamedQuery(name = "Car.findAll", query = "select new Car(c.id, c.weight, c.numberOfSeats, c.registrationNumber) from Car c")
+@NamedQuery(name = "Car.deleteById", query = "DELETE FROM Car WHERE id = :id")
+@NamedQuery(name = "Car.checkIfExists", query = "SELECT COUNT(*) FROM Car WHERE id = :id")
+@NamedQuery(name = "Car.findById", query = "select new Car(c.id, c.weight, c.numberOfSeats, c.registrationNumber) from Car c where c.id=:id")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
