@@ -17,8 +17,6 @@ import javax.persistence.*;
         @NamedQuery(name = "Worker.findById", query = "SELECT new Worker(w.id, w.pesel, w.name, w.surname, w.car) FROM Worker w WHERE w.id = :id"),
         @NamedQuery(name = "Worker.findAll", query = "select new Worker(w.id, w.pesel, w.name, w.surname, w.car) from Worker w")
 })
-@NamedEntityGraph(name = "workerCarGraph",
-        attributeNodes = @NamedAttributeNode(value = "car"))
 public class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

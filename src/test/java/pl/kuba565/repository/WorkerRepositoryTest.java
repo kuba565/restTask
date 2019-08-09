@@ -90,7 +90,13 @@ public class WorkerRepositoryTest extends TestBed {
         List<Worker> result = workerRepository.findAll();
 
         //then
-        Assertions.assertEquals(expected, result);
+        Assertions.assertAll(
+                () -> {
+                    for (int i = 0; i < result.size(); i++) {
+                        compareWorker(expected.get(i), result.get(i));
+                    }
+                }
+        );
     }
 
     @Test
@@ -106,11 +112,25 @@ public class WorkerRepositoryTest extends TestBed {
         Worker result = workerRepository.findById(workerId);
 
         //then
-        Assertions.assertEquals(expected, result);
+        compareWorker(expected, result);
     }
 
 
     private Worker getWorkerById(EntityManager entityManager, Long workerId) {
         return entityManager.createQuery("FROM Worker w WHERE w.id = :workerId", Worker.class).setParameter("workerId", workerId).getSingleResult();
+    }
+
+    private void compareWorker(Worker expectedWorker, Worker worker) {
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(expectedWorker.getId(), worker.getId()),
+                () -> Assertions.assertEquals(expectedWorker.getName(), worker.getName()),
+                () -> Assertions.assertEquals(expectedWorker.getPesel(), worker.getPesel()),
+                () -> Assertions.assertEquals(expectedWorker.getSurname(), worker.getSurname()),
+                () -> Assertions.assertEquals(expectedWorker.getCar().getId(), worker.getCar().getId()),
+                () -> Assertions.assertEquals(expectedWorker.getCar().getNumberOfSeats(), worker.getCar().getNumberOfSeats()),
+                () -> Assertions.assertEquals(expectedWorker.getCar().getRegistrationNumber(), worker.getCar().getRegistrationNumber()),
+                () -> Assertions.assertEquals(expectedWorker.getCar().getWeight(), worker.getCar().getWeight()),
+                () -> Assertions.assertFalse(Hibernate.isInitialized(worker.getCar().getLog()))
+        );
     }
 }

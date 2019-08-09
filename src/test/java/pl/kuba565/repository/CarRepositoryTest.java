@@ -93,6 +93,7 @@ public class CarRepositoryTest extends TestBed {
     }
 
     @Test
+    
     public void shouldFindCarWithoutLogField() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();

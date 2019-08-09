@@ -1,13 +1,9 @@
 package pl.kuba565.repository;
 
-import org.hibernate.Hibernate;
 import pl.kuba565.model.Worker;
 
-import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class WorkerRepository implements Repository<Worker> {
     private final EntityManager entityManager;
@@ -49,19 +45,10 @@ public class WorkerRepository implements Repository<Worker> {
     }
 
     public Worker findById(Long id) {
-//        return entityManager
-//                .createNamedQuery("Worker.findById", Worker.class)
-//                .setParameter("id", id)
-//                .getSingleResult();
-
-        EntityGraph graph = this.entityManager.getEntityGraph("workerCarGraph");
-
-        Map hints = new HashMap();
-        hints.put("javax.persistence.fetchgraph", graph);
-
-        Worker worker = this.entityManager.find(Worker.class, id, hints);
-        Hibernate.initialize(worker.getCar());
-        return worker;
+        return entityManager
+                .createNamedQuery("Worker.findById", Worker.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     public Long countRelationships(Long id) {

@@ -38,9 +38,9 @@ public class WorkerControllerTest extends TestBed {
     @Test
     public void shouldFindByIdWithoutCarLogField() {
         //when
-        Worker worker = workerController.findById(1L);
-        //then
-        Assertions.assertEquals(expectedWorker, worker); //TODO: FetchGraph to init car
+        final Long id = 1L;
+        Worker worker = workerController.findById(id);
+        compareWorker(expectedWorker, worker);
     }
 
     @Test
@@ -48,21 +48,29 @@ public class WorkerControllerTest extends TestBed {
         //when
         List<Worker> workers = workerController.findAll();
         //then
-        Assertions.assertEquals(expectedWorkers, workers);
+        Assertions.assertAll(
+                () -> {
+                    for (int i = 0; i < workers.size(); i++) {
+                        compareWorker(expectedWorkers.get(i), workers.get(i));
+                    }
+                }
+        );
     }
 
     @Test
     public void shouldPut() {
         //given
         final Long workerId = 1L;
-        final Worker expectedWorker = new Worker(workerId,  "22222", "AAAA", "BBBB");
+        final Worker expectedWorker = new Worker(workerId, "22222", "AAAA", "BBBB");
 
         //when
         workerController.put(expectedWorker);
 
         //then
-        Assertions.assertEquals(expectedWorker, entityManager.createQuery("SELECT new Worker(w.id, w.pesel, w.name, w.surname) FROM Worker w WHERE w.id = :workerId")
-                .setParameter("workerId", workerId).getSingleResult());
+        Assertions.assertEquals(expectedWorker, entityManager
+                .createQuery("SELECT new Worker(w.id, w.pesel, w.name, w.surname) FROM Worker w WHERE w.id = :workerId")
+                .setParameter("workerId", workerId)
+                .getSingleResult());
     }
 
     @Test
@@ -74,8 +82,10 @@ public class WorkerControllerTest extends TestBed {
         Long workerId = workerController.post(expectedWorker);
 
         //then
-        Assertions.assertEquals(expectedWorker, entityManager.createQuery("SELECT new Worker(w.pesel, w.name, w.surname) FROM Worker w WHERE w.id = :workerId")
-                .setParameter("workerId", workerId).getSingleResult());
+        Assertions.assertEquals(expectedWorker, entityManager
+                .createQuery("SELECT new Worker(w.pesel, w.name, w.surname) FROM Worker w WHERE w.id = :workerId")
+                .setParameter("workerId", workerId)
+                .getSingleResult());
     }
 
     @Test
@@ -85,7 +95,23 @@ public class WorkerControllerTest extends TestBed {
         workerController.deleteById(workerId);
 
         //then
-        Assertions.assertThrows(NoResultException.class, () -> entityManager.createQuery("SELECT w FROM Worker w WHERE w.id = :workerId")
-                .setParameter("workerId", workerId).getSingleResult());
+        Assertions.assertThrows(NoResultException.class, () -> entityManager
+                .createQuery("SELECT w FROM Worker w WHERE w.id = :workerId")
+                .setParameter("workerId", workerId)
+                .getSingleResult());
+    }
+
+    private void compareWorker(Worker expectedWorker, Worker worker) {
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(expectedWorker.getId(), worker.getId()),
+                () -> Assertions.assertEquals(expectedWorker.getName(), worker.getName()),
+                () -> Assertions.assertEquals(expectedWorker.getPesel(), worker.getPesel()),
+                () -> Assertions.assertEquals(expectedWorker.getSurname(), worker.getSurname()),
+                () -> Assertions.assertEquals(expectedWorker.getCar().getId(), worker.getCar().getId()),
+                () -> Assertions.assertEquals(expectedWorker.getCar().getNumberOfSeats(), worker.getCar().getNumberOfSeats()),
+                () -> Assertions.assertEquals(expectedWorker.getCar().getRegistrationNumber(), worker.getCar().getRegistrationNumber()),
+                () -> Assertions.assertEquals(expectedWorker.getCar().getWeight(), worker.getCar().getWeight()),
+                () -> Assertions.assertFalse(Hibernate.isInitialized(worker.getCar().getLog()))
+        );
     }
 }
