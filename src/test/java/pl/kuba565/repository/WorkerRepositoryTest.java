@@ -1,5 +1,6 @@
 package pl.kuba565.repository;
 
+import org.hibernate.Hibernate;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,11 +45,9 @@ public class WorkerRepositoryTest extends TestBed {
         EntityTransaction transaction = entityManager.getTransaction();
         WorkerRepository workerRepository = new WorkerRepository(entityManager);
 
-        final Worker worker = new Worker(1L, "12345678901", "John", "Hancock");
+        final Worker worker = new Worker(1L, "12345678901", "Marcin", "Hancock");
 
         //when
-        worker.setName("Marcin");
-
         transaction.begin();
         final Long workerId = workerRepository.update(worker).getId();
         transaction.commit();
@@ -95,7 +94,7 @@ public class WorkerRepositoryTest extends TestBed {
     }
 
     @Test
-    public void shouldFindWorkerWithCarAssignedWithoutLogField() {
+    public void shouldFindFindByIdWithCarAssignedWithoutLogField() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         WorkerRepository workerRepository = new WorkerRepository(entityManager);

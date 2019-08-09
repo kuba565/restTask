@@ -14,8 +14,8 @@ import javax.persistence.*;
         @NamedQuery(name = "Worker.countAssignedWorkers", query = "SELECT COUNT(*) FROM Worker WHERE car.id = :id"),
         @NamedQuery(name = "Worker.deleteById", query = "DELETE FROM Worker WHERE id = :id"),
         @NamedQuery(name = "Worker.checkIfExists", query = "SELECT COUNT(*) FROM Car WHERE id = :id"),
-        @NamedQuery(name = "Worker.findById", query = "SELECT w FROM Worker w WHERE id = :id"),
-        @NamedQuery(name = "Worker.findAll", query = "select new Worker(w.id, w.car, w.pesel, w.name, w.surname) from Worker w")
+        @NamedQuery(name = "Worker.findById", query = "SELECT new Worker(w.id, w.pesel, w.name, w.surname, w.car) FROM Worker w WHERE w.id = :id"),
+        @NamedQuery(name = "Worker.findAll", query = "select new Worker(w.id, w.pesel, w.name, w.surname, w.car) from Worker w")
 })
 @NamedEntityGraph(name = "workerCarGraph",
         attributeNodes = @NamedAttributeNode(value = "car"))
@@ -23,7 +23,7 @@ public class Worker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Car car;
     private String pesel;
     private String name;
@@ -34,6 +34,14 @@ public class Worker {
         this.pesel = pesel;
         this.name = name;
         this.surname = surname;
+    }
+
+    public Worker(Long id, String pesel, String name, String surname, Car car) {
+        this.id = id;
+        this.pesel = pesel;
+        this.name = name;
+        this.surname = surname;
+        this.car = car;
     }
 
     public Worker(String pesel, String name, String surname) {

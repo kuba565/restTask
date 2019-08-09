@@ -61,12 +61,12 @@ public class CarRepositoryTest extends TestBed {
         CarRepository carRepository = new CarRepository(entityManager);
         final Long carId = 1L;
 
-        //when3
+        //when
         transaction.begin();
         carRepository.deleteById(carId);
         transaction.commit();
 
-        //then3
+        //then
         Assertions.assertThrows(NoResultException.class, () -> getCarById(entityManager, carId));
     }
 
@@ -74,6 +74,7 @@ public class CarRepositoryTest extends TestBed {
     public void shouldFindAllCarsWithoutLogField() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
         CarRepository carRepository = new CarRepository(entityManager);
 
         final List<Car> expected = List.of(
@@ -83,7 +84,9 @@ public class CarRepositoryTest extends TestBed {
         );
 
         //when
+        transaction.begin();
         List<Car> result = carRepository.findAll();
+        transaction.commit();
 
         //then
         Assertions.assertEquals(expected, result);
@@ -93,12 +96,16 @@ public class CarRepositoryTest extends TestBed {
     public void shouldFindCarWithoutLogField() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
         CarRepository carRepository = new CarRepository(entityManager);
         long carId = 1L;
         final Car expected = new Car(carId, 1500, 5, "PO6HH12", null);
 
         //when
+        transaction.begin();
         Car result = carRepository.findById(carId);
+        transaction.commit();
+
 
         //then
         Assertions.assertEquals(expected, result);

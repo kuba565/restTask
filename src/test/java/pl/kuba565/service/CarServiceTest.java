@@ -1,20 +1,16 @@
 package pl.kuba565.service;
 
-import org.h2.mvstore.db.TransactionStore;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.TestBed;
 import pl.kuba565.exception.ValidationException;
 import pl.kuba565.model.Car;
-import pl.kuba565.model.Log;
-import pl.kuba565.repository.CarRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.transaction.Transaction;
 import java.util.List;
 
 public class CarServiceTest extends TestBed {

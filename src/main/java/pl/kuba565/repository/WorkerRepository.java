@@ -1,5 +1,6 @@
 package pl.kuba565.repository;
 
+import org.hibernate.Hibernate;
 import pl.kuba565.model.Worker;
 
 import javax.persistence.EntityGraph;
@@ -27,10 +28,6 @@ public class WorkerRepository implements Repository<Worker> {
         return newWorker.getId();
     }
 
-    //TODO: konstruktor workera z polami car, lub osobna tabela z log, lub criteriabuilder bez pola z car
-    // ad. 1 - brzydkie rozwiązanie
-    // ad. 2 - chyba najlepiej
-    // ad 3 - musze stworzyć model obiektu bez pola - brzydkie rozwiązanie
     public List<Worker> findAll() {
         return entityManager
                 .createNamedQuery("Worker.findAll", Worker.class)
@@ -60,9 +57,11 @@ public class WorkerRepository implements Repository<Worker> {
         EntityGraph graph = this.entityManager.getEntityGraph("workerCarGraph");
 
         Map hints = new HashMap();
-        hints.put("javax.persistence.loadgraph", graph);
+        hints.put("javax.persistence.fetchgraph", graph);
 
-        return this.entityManager.find(Worker.class, id, hints);
+        Worker worker = this.entityManager.find(Worker.class, id, hints);
+        Hibernate.initialize(worker.getCar());
+        return worker;
     }
 
     public Long countRelationships(Long id) {

@@ -1,6 +1,5 @@
 package pl.kuba565.service;
 
-import org.hibernate.Hibernate;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,18 @@ public class WorkerServiceTest extends TestBed {
 
         //when
         List<Worker> result = workerService.findAll();
+
+        //then
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void shouldFindFindByIdWithoutCarLogField() {
+        long id = 1L;
+        Worker expected = new Worker(id, new Car(2L, 1500, 5, "PO6HH12"), "12345678901", "Jakub", "Kąkolewski");
+
+        //when
+        Worker result = workerService.findById(id);
 
         //then
         Assertions.assertEquals(expected, result);
