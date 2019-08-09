@@ -1,5 +1,6 @@
 package pl.kuba565.service;
 
+import org.hibernate.Hibernate;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,11 @@ public class WorkerServiceTest extends TestBed {
     private EntityManagerFactory entityManagerFactory;
 
     @Test
-    public void shouldFindAllWorkers() {
+    public void shouldFindAllWorkersWithoutCarLogField() {
         //given
         List<Worker> expected = List.of(
-                new Worker(1L, new Car(2L, 1500, 5, "PO6HH12", "test"), "12345678901", "Jakub", "Kąkolewski"),
-                new Worker(2L, new Car(2L, 1500, 5, "PO6HH12", "test"), "12345678902", "Adam", "Nowak"),
+                new Worker(1L, new Car(2L, 1500, 5, "PO6HH12"), "12345678901", "Jakub", "Kąkolewski"),
+                new Worker(2L, new Car(2L, 1500, 5, "PO6HH12"), "12345678902", "Adam", "Nowak"),
                 new Worker(3L, "12342678902", "Marian", "Nowak")
         );
 
@@ -40,7 +41,6 @@ public class WorkerServiceTest extends TestBed {
     public void shouldCreateWorker() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
         final Worker worker = new Worker("1", "g", "a");
 
         //when
@@ -48,9 +48,7 @@ public class WorkerServiceTest extends TestBed {
 
         //then
         worker.setId(workerId);
-        Assertions.assertEquals(worker, entityManager.createQuery("Select w From Worker w where w.id = :workerId", Worker.class)
-                .setParameter("workerId", workerId)
-                .getSingleResult()
+        Assertions.assertEquals(worker, getWorkerById(entityManager, workerId)
         );
     }
 
@@ -58,7 +56,6 @@ public class WorkerServiceTest extends TestBed {
     public void shouldUpdateWorker() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
 
         final Worker worker = new Worker(1L, "1", "g", "a");
 
@@ -67,9 +64,7 @@ public class WorkerServiceTest extends TestBed {
         Long workerID = workerService.update(worker).getId();
 
         //then
-        Assertions.assertEquals(worker, entityManager.createQuery("Select w From Worker w where w.id = :workerId", Worker.class)
-                .setParameter("workerId", workerID)
-                .getSingleResult()
+        Assertions.assertEquals(worker, getWorkerById(entityManager, workerID)
         );
     }
 
@@ -87,8 +82,7 @@ public class WorkerServiceTest extends TestBed {
 
         //then
         Assertions.assertThrows(NoResultException.class,
-                () -> entityManager.createQuery("Select w From Worker w where w.id = :workerId", Worker.class)
-                        .setParameter("workerId", workerId).getSingleResult()
+                () -> getWorkerById(entityManager, workerId)
         );
     }
 
@@ -99,5 +93,9 @@ public class WorkerServiceTest extends TestBed {
 
         //then
         Assertions.assertThrows(ValidationException.class, () -> workerService.deleteById(workerId));
+    }
+
+    private Worker getWorkerById(EntityManager entityManager, Long workerID) {
+        return entityManager.createQuery("Select w From Worker w where w.id = :workerId", Worker.class).setParameter("workerId", workerID).getSingleResult();
     }
 }

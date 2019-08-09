@@ -7,26 +7,23 @@ import pl.kuba565.TestBed;
 import pl.kuba565.model.Car;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import java.util.List;
-
 
 public class CarControllerTest extends TestBed {
     @Autowired
     private CarController carController;
     @Autowired
     private EntityManager entityManager;
-
-    @Test
-    public void contextLoads() {
-        Assertions.assertNotNull(carController);
-    }
+    @Autowired
+    private EntityManagerFactory entityManagerFactory;
 
     @Test
     public void shouldFindById() {
         //given
         final Long carId = 1L;
-        final Car expectedCar = new Car(carId, 1500, 5, "PO6HH12", null);
+        final Car expectedCar = new Car(carId, 1500, 5, "PO6HH12");
 
         //when
         Car car = carController.findById(carId);
@@ -38,9 +35,9 @@ public class CarControllerTest extends TestBed {
     @Test
     public void shouldFindAll() {
         //given
-        final List<Car> expectedCars = List.of(new Car(1L, 1500, 5, "PO6HH12", null),
-                new Car(2L, 1500, 5, "PO6HH12", null),
-                new Car(3L, 500, 4, "PO121TJ", null));
+        final List<Car> expectedCars = List.of(new Car(1L, 1500, 5, "PO6HH12"),
+                new Car(2L, 1500, 5, "PO6HH12"),
+                new Car(3L, 500, 4, "PO121TJ"));
 
         //when
         List<Car> cars = carController.findAll();
@@ -50,28 +47,31 @@ public class CarControllerTest extends TestBed {
     }
 
     @Test
-    public void shouldPut() {
+    public void shouldPutWithoutLogField() {
         //given
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         final Long carId = 1L;
-        final Car expectedCar = new Car(carId, 2333, 2, "ASF123", null);
+        final Car expectedCar = new Car(carId, 2333, 2, "ASF123");
 
         //when
         carController.put(expectedCar);
 
         //then
-        Assertions.assertEquals(expectedCar, entityManager.createQuery("SELECT new Car(c.id, c.weight, c.numberOfSeats, c.registrationNumber) FROM Car c WHERE c.id = :carId").setParameter("carId", carId).getSingleResult());
+        Assertions.assertEquals(expectedCar, getCarById(entityManager, carId));
     }
 
     @Test
     public void shouldPost() {
         //given
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
         final Car expectedCar = new Car(2333, 2, "ASF123", null);
 
         //when
         Long carId = carController.post(expectedCar);
 
         //then
-        Assertions.assertEquals(expectedCar, entityManager.createQuery("SELECT new Car(c.weight, c.numberOfSeats, c.registrationNumber) FROM Car c WHERE c.id = :carId").setParameter("carId", carId).getSingleResult());
+        expectedCar.setId(carId);
+        Assertions.assertEquals(expectedCar, getCarById(entityManager, carId));
     }
 
     @Test
@@ -81,6 +81,10 @@ public class CarControllerTest extends TestBed {
         carController.deleteById(carId);
 
         //then
-        Assertions.assertThrows(NoResultException.class, () -> entityManager.createQuery("SELECT c FROM Car c WHERE c.id = :carId").setParameter("carId", carId).getSingleResult());
+        Assertions.assertThrows(NoResultException.class, () -> getCarById(entityManager, carId));
+    }
+
+    private Car getCarById(EntityManager entityManager, Long carId) {
+        return entityManager.createQuery("FROM Car c WHERE c.id = :carId", Car.class).setParameter("carId", carId).getSingleResult();
     }
 }

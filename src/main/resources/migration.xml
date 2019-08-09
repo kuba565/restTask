@@ -4,17 +4,26 @@
 
     <changeSet author="Jakub" id="1" context="test">
 
+        <createTable tableName="log" schemaName="public">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="log" type="blob">
+            </column>
+        </createTable>
+
         <createTable tableName="car" schemaName="public">
             <column name="id" type="bigint">
                 <constraints primaryKey="true"/>
+            </column>
+            <column name="log_id" type="bigint">
+                <constraints foreignKeyName="fk_log" references="log"/>
             </column>
             <column name="weight" type="decimal">
             </column>
             <column name="number_of_seats" type="smallint">
             </column>
             <column name="registration_number" type="varchar(20)">
-            </column>
-            <column name="log" type="blob">
             </column>
         </createTable>
 
@@ -23,7 +32,7 @@
                 <constraints primaryKey="true"/>
             </column>
             <column name="car_id" type="bigint">
-                <constraints foreignKeyName="id" references="car"/>
+                <constraints foreignKeyName="fk_car" references="car"/>
             </column>
             <column name="pesel" type="char(11)">
             </column>
@@ -36,6 +45,11 @@
         <addAutoIncrement columnDataType="int"
                           columnName="id"
                           schemaName="public"
+                          tableName="log"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          schemaName="public"
                           tableName="car"/>
 
         <addAutoIncrement columnDataType="int"
@@ -43,14 +57,18 @@
                           schemaName="public"
                           tableName="worker"/>
 
-        <insert tableName="car">
-            <column name="weight" value="1500">
+        <insert tableName="log">
+            <column name="log" value="7465737431">
             </column>
-            <column name="number_of_seats" value="5">
+        </insert>
+
+        <insert tableName="log">
+            <column name="log" value="7465737432">
             </column>
-            <column name="registration_number" value="PO6HH12">
-            </column>
-            <column name="log" value="74657374">
+        </insert>
+
+        <insert tableName="log">
+            <column name="log" value="7465737433">
             </column>
         </insert>
 
@@ -61,7 +79,18 @@
             </column>
             <column name="registration_number" value="PO6HH12">
             </column>
-            <column name="log" value="74657374">
+            <column name="log_id" value="1">
+            </column>
+        </insert>
+
+        <insert tableName="car">
+            <column name="weight" value="1500">
+            </column>
+            <column name="number_of_seats" value="5">
+            </column>
+            <column name="registration_number" value="PO6HH12">
+            </column>
+            <column name="log_id" value="2">
             </column>
         </insert>
 
@@ -72,7 +101,7 @@
             </column>
             <column name="registration_number" value="PO121TJ">
             </column>
-            <column name="log" value="7465737432">
+            <column name="log_id" value="3">
             </column>
         </insert>
 

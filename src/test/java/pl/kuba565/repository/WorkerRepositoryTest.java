@@ -3,7 +3,6 @@ package pl.kuba565.repository;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.DirtiesContext;
 import pl.kuba565.TestBed;
 import pl.kuba565.model.Car;
 import pl.kuba565.model.Worker;
@@ -19,7 +18,6 @@ public class WorkerRepositoryTest extends TestBed {
     private EntityManagerFactory entityManagerFactory;
 
     @Test
-    @DirtiesContext
     public void shouldCreateWorker() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -34,14 +32,12 @@ public class WorkerRepositoryTest extends TestBed {
         transaction.commit();
 
         //then
-        Worker result = workerRepository.findById(workerId);
         worker.setId(workerId);
-        Assertions.assertEquals(worker, result);
+        Assertions.assertEquals(worker, getWorkerById(entityManager, workerId));
     }
 
 
     @Test
-    @DirtiesContext
     public void shouldUpdateWorker() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -58,12 +54,11 @@ public class WorkerRepositoryTest extends TestBed {
         transaction.commit();
 
         //then
-        Assertions.assertEquals(worker, workerRepository.findById(workerId));
+        Assertions.assertEquals(worker, getWorkerById(entityManager, workerId));
     }
 
 
     @Test
-    @DirtiesContext
     public void shouldDeleteWorker() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -77,19 +72,18 @@ public class WorkerRepositoryTest extends TestBed {
         transaction.commit();
 
         //then
-        Assertions.assertThrows(NoResultException.class, () -> workerRepository.findById(workerId));
+        Assertions.assertThrows(NoResultException.class, () -> getWorkerById(entityManager, workerId));
     }
 
     @Test
-    @DirtiesContext
-    public void shouldFindAllCars() {
+    public void shouldFindAllWorkersCarsAssignedWithoutLogField() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         WorkerRepository workerRepository = new WorkerRepository(entityManager);
 
         final List<Worker> expected = List.of(
-                new Worker(1L, new Car(2L, 1500, 5, "PO6HH12", "test"), "12345678901", "Jakub", "Kąkolewski"),
-                new Worker(2L, new Car(2L, 1500, 5, "PO6HH12", "test"), "12345678902", "Adam", "Nowak"),
+                new Worker(1L, new Car(2L, 1500, 5, "PO6HH12", null), "12345678901", "Jakub", "Kąkolewski"),
+                new Worker(2L, new Car(2L, 1500, 5, "PO6HH12", null), "12345678902", "Adam", "Nowak"),
                 new Worker(3L, "12342678902", "Marian", "Nowak")
         );
 
@@ -98,5 +92,26 @@ public class WorkerRepositoryTest extends TestBed {
 
         //then
         Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void shouldFindWorkerWithCarAssignedWithoutLogField() {
+        //given
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        WorkerRepository workerRepository = new WorkerRepository(entityManager);
+
+        long workerId = 1L;
+        final Worker expected = new Worker(workerId, new Car(2L, 1500, 5, "PO6HH12", null), "12345678901", "Jakub", "Kąkolewski");
+
+        //when
+        Worker result = workerRepository.findById(workerId);
+
+        //then
+        Assertions.assertEquals(expected, result);
+    }
+
+
+    private Worker getWorkerById(EntityManager entityManager, Long workerId) {
+        return entityManager.createQuery("FROM Worker w WHERE w.id = :workerId", Worker.class).setParameter("workerId", workerId).getSingleResult();
     }
 }

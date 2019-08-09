@@ -3,7 +3,6 @@ package pl.kuba565.repository;
 import pl.kuba565.model.Car;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class CarRepository implements Repository<Car> {
@@ -13,38 +12,47 @@ public class CarRepository implements Repository<Car> {
         this.entityManager = entityManager;
     }
 
-    public Car update(Car car) {
-        final Car newCar = new Car(car.getId(), car.getWeight(), car.getNumberOfSeats(), car.getRegistrationNumber());
+    public Car update(Car newCar) {
         entityManager.merge(newCar);
-        entityManager.flush();
         return newCar;
     }
 
     public Long create(Car car) {
-        final Car newCar = new Car(car.getWeight(), car.getNumberOfSeats(), car.getRegistrationNumber(), car.getLog());
-        entityManager.persist(newCar);
-        entityManager.flush();
-        return newCar.getId();
+        entityManager.persist(car);
+        return car.getId();
     }
 
     public List<Car> findAll() {
-        final TypedQuery<Car> carTypedQuery = entityManager.createNamedQuery("Car.findAll", Car.class);
-        return carTypedQuery.getResultList();
+        return entityManager
+                .createNamedQuery("Car.findAll", Car.class)
+                .getResultList();
     }
 
     public void deleteById(Long id) {
-        entityManager.createNamedQuery("Car.deleteById").setParameter("id", id).executeUpdate();
+        entityManager
+                .createNamedQuery("Car.deleteById")
+                .setParameter("id", id)
+                .executeUpdate();
     }
 
     public Boolean checkIfExists(Long id) {
-        return entityManager.createNamedQuery("Car.checkIfExists", Long.class).setParameter("id", id).getSingleResult() > 0;
+        return entityManager
+                .createNamedQuery("Car.checkIfExists", Long.class)
+                .setParameter("id", id)
+                .getSingleResult() > 0;
     }
 
     public Long countRelationships(Long id) {
-        return entityManager.createNamedQuery("Worker.countAssignedWorkers", Long.class).setParameter("id", id).getSingleResult();
+        return entityManager
+                .createNamedQuery("Worker.countAssignedWorkers", Long.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
     public Car findById(Long id) {
-        return entityManager.createNamedQuery("Car.findById", Car.class).setParameter("id", id).getSingleResult();
+        return entityManager
+                .createNamedQuery("Car.findById", Car.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }

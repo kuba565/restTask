@@ -1,5 +1,6 @@
 package pl.kuba565.controller;
 
+import org.hibernate.Hibernate;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +20,14 @@ public class WorkerControllerTest extends TestBed {
     private EntityManager entityManager;
 
     private final List<Worker> expectedWorkers =
-            List.of(new Worker(1L, new Car(2L, 1500, 5, "PO6HH12", "test"),
+            List.of(new Worker(1L, new Car(2L, 1500, 5, "PO6HH12"),
                             "12345678901", "Jakub", "Kąkolewski"),
-                    new Worker(2L, new Car(2L, 1500, 5, "PO6HH12", "test"),
+                    new Worker(2L, new Car(2L, 1500, 5, "PO6HH12"),
                             "12345678902", "Adam", "Nowak"),
                     new Worker(3L, "12342678902", "Marian", "Nowak"));
 
     private final Worker expectedWorker = new Worker(1L,
-            new Car(2L, 1500, 5, "PO6HH12", "test"),
+            new Car(2L, 1500, 5, "PO6HH12"),
             "12345678901", "Jakub", "Kąkolewski");
 
     @Test
@@ -35,19 +36,17 @@ public class WorkerControllerTest extends TestBed {
     }
 
     @Test
-    public void shouldFindById() {
+    public void shouldFindByIdWithoutCarLogField() {
         //when
         Worker worker = workerController.findById(1L);
-
         //then
-        Assertions.assertEquals(expectedWorker, worker);
+        Assertions.assertEquals(expectedWorker, worker); //TODO: FetchGraph to init car
     }
 
     @Test
-    public void shouldFindAll() {
+    public void shouldFindAllWithoutCarLogField() {
         //when
         List<Worker> workers = workerController.findAll();
-
         //then
         Assertions.assertEquals(expectedWorkers, workers);
     }

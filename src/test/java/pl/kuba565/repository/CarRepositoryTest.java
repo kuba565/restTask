@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.TestBed;
 import pl.kuba565.model.Car;
+import pl.kuba565.model.Log;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,28 +33,25 @@ public class CarRepositoryTest extends TestBed {
 
         //then1
         car.setId(carId);
-        Assertions.assertEquals(car, carRepository.findById(carId));
+        Assertions.assertEquals(car, getCarById(entityManager, carId));
     }
 
-
     @Test
-    public void shouldUpdateCar() {
+    public void shouldUpdateCarWithoutLogField() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
         CarRepository carRepository = new CarRepository(entityManager);
-        final Car car = new Car(1L, 11, 5, "AVBASD2");
+        final Car car = new Car(1L, 11, 5, "123451");
 
         //when
-        car.setRegistrationNumber("123451");
         transaction.begin();
         final Long carId = carRepository.update(car).getId();
         transaction.commit();
 
         //then
-        Assertions.assertEquals(car, carRepository.findById(carId));
+        Assertions.assertEquals(car, getCarById(entityManager, carId));
     }
-
 
     @Test
     public void shouldDeleteCar() {
@@ -69,19 +67,19 @@ public class CarRepositoryTest extends TestBed {
         transaction.commit();
 
         //then3
-        Assertions.assertThrows(NoResultException.class, () -> carRepository.findById(carId));
+        Assertions.assertThrows(NoResultException.class, () -> getCarById(entityManager, carId));
     }
 
     @Test
-    public void shouldFindAllCars() {
+    public void shouldFindAllCarsWithoutLogField() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         CarRepository carRepository = new CarRepository(entityManager);
 
         final List<Car> expected = List.of(
-                new Car(1L, 1500, 5, "PO6HH12"),
-                new Car(2L, 1500, 5, "PO6HH12"),
-                new Car(3L, 500, 4, "PO121TJ")
+                new Car(1L, 1500, 5, "PO6HH12", null),
+                new Car(2L, 1500, 5, "PO6HH12", null),
+                new Car(3L, 500, 4, "PO121TJ", null)
         );
 
         //when
@@ -89,5 +87,24 @@ public class CarRepositoryTest extends TestBed {
 
         //then
         Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void shouldFindCarWithoutLogField() {
+        //given
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        CarRepository carRepository = new CarRepository(entityManager);
+        long carId = 1L;
+        final Car expected = new Car(carId, 1500, 5, "PO6HH12", null);
+
+        //when
+        Car result = carRepository.findById(carId);
+
+        //then
+        Assertions.assertEquals(expected, result);
+    }
+
+    private Object getCarById(EntityManager entityManager, Long carId) {
+        return entityManager.createQuery("FROM Car c WHERE c.id = :carId").setParameter("carId", carId).getSingleResult();
     }
 }

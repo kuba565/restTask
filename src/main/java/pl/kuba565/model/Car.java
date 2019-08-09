@@ -11,14 +11,10 @@ import javax.persistence.*;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @NamedQueries({
-        @NamedQuery(name = "Car.findAll",
-                query = "Select new Car(c.id, c.weight, c.numberOfSeats, c.registrationNumber) FROM Car c"),
-        @NamedQuery(name = "Car.deleteById",
-                query = "DELETE FROM Car WHERE id = :id"),
-        @NamedQuery(name = "Car.checkIfExists",
-                query = "SELECT COUNT(*) FROM Car WHERE id = :id"),
-        @NamedQuery(name = "Car.findById",
-                query = "SELECT new Car(c.id, c.weight, c.numberOfSeats, c.registrationNumber) FROM Car c WHERE id = :id")
+        @NamedQuery(name = "Car.findAll", query = "select new Car(c.id, c.weight, c.numberOfSeats, c.registrationNumber) from Car c"),
+        @NamedQuery(name = "Car.deleteById", query = "DELETE FROM Car WHERE id = :id"),
+        @NamedQuery(name = "Car.checkIfExists", query = "SELECT COUNT(*) FROM Car WHERE id = :id"),
+        @NamedQuery(name = "Car.findById", query = "select new Car(c.id, c.weight, c.numberOfSeats, c.registrationNumber) from Car c where c.id=:id")
 })
 public class Car {
     @Id
@@ -27,9 +23,8 @@ public class Car {
     private Integer weight;
     private Integer numberOfSeats;
     private String registrationNumber;
-    @Lob
-    @Column(updatable = false)
-    private String log;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Log log;
 
     public Car(Integer weight, Integer numberOfSeats, String registrationNumber) {
         this.weight = weight;
@@ -37,7 +32,7 @@ public class Car {
         this.registrationNumber = registrationNumber;
     }
 
-    public Car(Integer weight, Integer numberOfSeats, String registrationNumber, String log) {
+    public Car(Integer weight, Integer numberOfSeats, String registrationNumber, Log log) {
         this.weight = weight;
         this.numberOfSeats = numberOfSeats;
         this.registrationNumber = registrationNumber;
