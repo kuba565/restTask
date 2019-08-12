@@ -1,0 +1,139 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet author="Jakub" id="1">
+
+        <createTable tableName="log" schemaName="public">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="log" type="blob">
+            </column>
+        </createTable>
+
+        <createTable tableName="car" schemaName="public">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="log_id" type="bigint">
+                <constraints foreignKeyName="fk_log" references="log"/>
+            </column>
+            <column name="weight" type="decimal">
+            </column>
+            <column name="number_of_seats" type="smallint">
+            </column>
+            <column name="registration_number" type="varchar(20)">
+            </column>
+        </createTable>
+
+        <createTable tableName="worker" schemaName="public">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="car_id" type="bigint">
+                <constraints foreignKeyName="fk_car" references="car"/>
+            </column>
+            <column name="pesel" type="char(11)">
+            </column>
+            <column name="name" type="varchar(30)">
+            </column>
+            <column name="surname" type="varchar(30)">
+            </column>
+        </createTable>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          schemaName="public"
+                          tableName="log"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          schemaName="public"
+                          tableName="car"/>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          schemaName="public"
+                          tableName="worker"/>
+
+        <insert tableName="log">
+            <column name="log" value="7465737431">
+            </column>
+        </insert>
+
+        <insert tableName="log">
+            <column name="log" value="7465737432">
+            </column>
+        </insert>
+
+        <insert tableName="log">
+            <column name="log" value="7465737433">
+            </column>
+        </insert>
+
+        <insert tableName="car">
+            <column name="weight" value="1500">
+            </column>
+            <column name="number_of_seats" value="5">
+            </column>
+            <column name="registration_number" value="PO6HH12">
+            </column>
+            <column name="log_id" value="1">
+            </column>
+        </insert>
+
+        <insert tableName="car">
+            <column name="weight" value="1500">
+            </column>
+            <column name="number_of_seats" value="5">
+            </column>
+            <column name="registration_number" value="PO6HH12">
+            </column>
+            <column name="log_id" value="2">
+            </column>
+        </insert>
+
+        <insert tableName="car">
+            <column name="weight" value="500">
+            </column>
+            <column name="number_of_seats" value="4">
+            </column>
+            <column name="registration_number" value="PO121TJ">
+            </column>
+            <column name="log_id" value="3">
+            </column>
+        </insert>
+
+        <insert tableName="worker">
+            <column name="car_id" value="2">
+            </column>
+            <column name="pesel" value="12345678901">
+            </column>
+            <column name="name" value="Jakub">
+            </column>
+            <column name="surname" value="Kąkolewski">
+            </column>
+        </insert>
+
+        <insert tableName="worker">
+            <column name="car_id" value="2">
+            </column>
+            <column name="pesel" value="12345678902">
+            </column>
+            <column name="name" value="Adam">
+            </column>
+            <column name="surname" value="Nowak">
+            </column>
+        </insert>
+
+        <insert tableName="worker">
+            <column name="pesel" value="12342678902">
+            </column>
+            <column name="name" value="Marian">
+            </column>
+            <column name="surname" value="Nowak">
+            </column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
