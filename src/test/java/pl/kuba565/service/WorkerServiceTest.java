@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.TestBed;
 import pl.kuba565.Util.AssertionUtil;
+import pl.kuba565.Util.EntityManagerUtil;
 import pl.kuba565.exception.ValidationException;
 import pl.kuba565.model.Car;
 import pl.kuba565.model.Worker;
@@ -60,7 +61,7 @@ public class WorkerServiceTest extends TestBed {
 
         //then
         worker.setId(workerId);
-        Assertions.assertEquals(worker, getWorkerById(entityManager, workerId));
+        Assertions.assertEquals(worker, EntityManagerUtil.getWorkerById(entityManager, workerId));
     }
 
     @Test
@@ -75,7 +76,7 @@ public class WorkerServiceTest extends TestBed {
         Long workerID = workerService.update(worker).getId();
 
         //then
-        Assertions.assertEquals(worker, getWorkerById(entityManager, workerID));
+        Assertions.assertEquals(worker, EntityManagerUtil.getWorkerById(entityManager, workerID));
     }
 
     @Test
@@ -92,7 +93,7 @@ public class WorkerServiceTest extends TestBed {
 
         //then
         Assertions.assertThrows(NoResultException.class,
-                () -> getWorkerById(entityManager, workerId)
+                () -> EntityManagerUtil.getWorkerById(entityManager, workerId)
         );
     }
 
@@ -103,9 +104,5 @@ public class WorkerServiceTest extends TestBed {
 
         //then
         Assertions.assertThrows(ValidationException.class, () -> workerService.deleteById(workerId));
-    }
-
-    private Worker getWorkerById(EntityManager entityManager, Long workerID) {
-        return entityManager.createQuery("Select w From Worker w where w.id = :workerId", Worker.class).setParameter("workerId", workerID).getSingleResult();
     }
 }

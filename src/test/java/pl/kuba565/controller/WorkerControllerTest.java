@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.TestBed;
 import pl.kuba565.Util.AssertionUtil;
+import pl.kuba565.Util.EntityManagerUtil;
 import pl.kuba565.model.Car;
 import pl.kuba565.model.Worker;
 
@@ -64,11 +65,9 @@ public class WorkerControllerTest extends TestBed {
         workerController.put(expectedWorker);
 
         //then
-        Assertions.assertEquals(expectedWorker, entityManager
-                .createQuery("SELECT new Worker(w.id, w.pesel, w.name, w.surname) FROM Worker w WHERE w.id = :workerId")
-                .setParameter("workerId", workerId)
-                .getSingleResult());
+        Assertions.assertEquals(expectedWorker, EntityManagerUtil.getWorkerById(entityManager, workerId));
     }
+
 
     @Test
     public void shouldPost() {
@@ -79,10 +78,8 @@ public class WorkerControllerTest extends TestBed {
         Long workerId = workerController.post(expectedWorker);
 
         //then
-        Assertions.assertEquals(expectedWorker, entityManager
-                .createQuery("SELECT new Worker(w.pesel, w.name, w.surname) FROM Worker w WHERE w.id = :workerId")
-                .setParameter("workerId", workerId)
-                .getSingleResult());
+        expectedWorker.setId(4L);
+        Assertions.assertEquals(expectedWorker, EntityManagerUtil.getWorkerById(entityManager, workerId));
     }
 
     @Test
@@ -92,9 +89,6 @@ public class WorkerControllerTest extends TestBed {
         workerController.deleteById(workerId);
 
         //then
-        Assertions.assertThrows(NoResultException.class, () -> entityManager
-                .createQuery("SELECT w FROM Worker w WHERE w.id = :workerId")
-                .setParameter("workerId", workerId)
-                .getSingleResult());
+        Assertions.assertThrows(NoResultException.class, () -> EntityManagerUtil.getWorkerById(entityManager, workerId));
     }
 }

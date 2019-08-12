@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.TestBed;
+import pl.kuba565.Util.EntityManagerUtil;
 import pl.kuba565.model.Car;
 
 import javax.persistence.EntityManager;
@@ -57,7 +58,7 @@ public class CarControllerTest extends TestBed {
         carController.put(expectedCar);
 
         //then
-        Assertions.assertEquals(expectedCar, getCarById(entityManager, carId));
+        Assertions.assertEquals(expectedCar, EntityManagerUtil.getCarById(entityManager, carId));
     }
 
     @Test
@@ -71,7 +72,7 @@ public class CarControllerTest extends TestBed {
 
         //then
         expectedCar.setId(carId);
-        Assertions.assertEquals(expectedCar, getCarById(entityManager, carId));
+        Assertions.assertEquals(expectedCar, EntityManagerUtil.getCarById(entityManager, carId));
     }
 
     @Test
@@ -81,10 +82,6 @@ public class CarControllerTest extends TestBed {
         carController.deleteById(carId);
 
         //then
-        Assertions.assertThrows(NoResultException.class, () -> getCarById(entityManager, carId));
-    }
-
-    private Car getCarById(EntityManager entityManager, Long carId) {
-        return entityManager.createQuery("FROM Car c WHERE c.id = :carId", Car.class).setParameter("carId", carId).getSingleResult();
+        Assertions.assertThrows(NoResultException.class, () -> EntityManagerUtil.getCarById(entityManager, carId));
     }
 }

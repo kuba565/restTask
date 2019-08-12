@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.TestBed;
+import pl.kuba565.Util.EntityManagerUtil;
 import pl.kuba565.exception.ValidationException;
 import pl.kuba565.model.Car;
 
@@ -49,7 +50,7 @@ public class CarServiceTest extends TestBed {
 
         //then
         car.setId(carId);
-        Assertions.assertEquals(car, getCarById(entityManager, carId)
+        Assertions.assertEquals(car, EntityManagerUtil.getCarById(entityManager, carId)
         );
     }
 
@@ -69,7 +70,7 @@ public class CarServiceTest extends TestBed {
         transaction.commit();
 
         //then
-        Assertions.assertEquals(car, getCarById(entityManager, carId));
+        Assertions.assertEquals(car, EntityManagerUtil.getCarById(entityManager, carId));
     }
 
     @Test
@@ -86,7 +87,7 @@ public class CarServiceTest extends TestBed {
 
         //then
         Assertions.assertThrows(NoResultException.class,
-                () -> getCarById(entityManager, carId)
+                () -> EntityManagerUtil.getCarById(entityManager, carId)
         );
     }
 
@@ -101,9 +102,5 @@ public class CarServiceTest extends TestBed {
         //when
         //then
         Assertions.assertThrows(ValidationException.class, () -> carService.deleteById(carId));
-    }
-
-    private Object getCarById(EntityManager entityManager, Long carId) {
-        return entityManager.createQuery("from Car c where c.id = :carId").setParameter("carId", carId).getSingleResult();
     }
 }

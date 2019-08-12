@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.TestBed;
+import pl.kuba565.Util.EntityManagerUtil;
 import pl.kuba565.model.Car;
 
 import javax.persistence.EntityManager;
@@ -32,7 +33,7 @@ public class CarRepositoryTest extends TestBed {
 
         //then1
         car.setId(carId);
-        Assertions.assertEquals(car, getCarById(entityManager, carId));
+        Assertions.assertEquals(car, EntityManagerUtil.getCarById(entityManager, carId));
     }
 
     @Test
@@ -49,7 +50,7 @@ public class CarRepositoryTest extends TestBed {
         transaction.commit();
 
         //then
-        Assertions.assertEquals(car, getCarById(entityManager, carId));
+        Assertions.assertEquals(car, EntityManagerUtil.getCarById(entityManager, carId));
     }
 
     @Test
@@ -66,7 +67,7 @@ public class CarRepositoryTest extends TestBed {
         transaction.commit();
 
         //then
-        Assertions.assertThrows(NoResultException.class, () -> getCarById(entityManager, carId));
+        Assertions.assertThrows(NoResultException.class, () -> EntityManagerUtil.getCarById(entityManager, carId));
     }
 
     @Test
@@ -109,9 +110,5 @@ public class CarRepositoryTest extends TestBed {
 
         //then
         Assertions.assertEquals(expected, result);
-    }
-
-    private Object getCarById(EntityManager entityManager, Long carId) {
-        return entityManager.createQuery("FROM Car c WHERE c.id = :carId").setParameter("carId", carId).getSingleResult();
     }
 }
