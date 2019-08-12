@@ -1,6 +1,5 @@
 package pl.kuba565.service;
 
-import org.hibernate.Hibernate;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.TestBed;
 import pl.kuba565.model.Car;
-import pl.kuba565.model.Log;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -93,7 +92,7 @@ public class CarRepositoryTest extends TestBed {
     }
 
     @Test
-    
+
     public void shouldFindCarWithoutLogField() {
         //given
         EntityManager entityManager = entityManagerFactory.createEntityManager();

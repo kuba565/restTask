@@ -7,6 +7,7 @@ import pl.kuba565.model.Worker;
 import java.util.List;
 
 public class AssertionUtil {
+
     public static void compareWorker(Worker expectedWorker, Worker worker) {
         Assertions.assertAll(
                 () -> Assertions.assertEquals(expectedWorker.getId(), worker.getId()),
@@ -20,7 +21,6 @@ public class AssertionUtil {
                 () -> Assertions.assertFalse(Hibernate.isInitialized(worker.getCar().getLog()))
         );
     }
-
 
     public static void compareWorkers(List<Worker> expected, List<Worker> result) {
         Assertions.assertAll(

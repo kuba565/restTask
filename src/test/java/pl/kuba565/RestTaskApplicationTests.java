@@ -15,7 +15,7 @@ public class RestTaskApplicationTests {
 
     @Test
     public void contextLoads() {
-		Assertions.assertNotNull(restTaskApplication);
+        Assertions.assertNotNull(restTaskApplication);
     }
 
 }
