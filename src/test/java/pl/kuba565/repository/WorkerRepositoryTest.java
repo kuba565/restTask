@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.TestBed;
+import pl.kuba565.Util.AssertionUtil;
 import pl.kuba565.model.Car;
 import pl.kuba565.model.Worker;
 
@@ -90,13 +91,7 @@ public class WorkerRepositoryTest extends TestBed {
         List<Worker> result = workerRepository.findAll();
 
         //then
-        Assertions.assertAll(
-                () -> {
-                    for (int i = 0; i < result.size(); i++) {
-                        compareWorker(expected.get(i), result.get(i));
-                    }
-                }
-        );
+        Assertions.assertAll(() -> AssertionUtil.compareWorkers(expected, result));
     }
 
     @Test
@@ -112,25 +107,11 @@ public class WorkerRepositoryTest extends TestBed {
         Worker result = workerRepository.findById(workerId);
 
         //then
-        compareWorker(expected, result);
+        Assertions.assertAll(() -> AssertionUtil.compareWorker(expected, result));
     }
 
 
     private Worker getWorkerById(EntityManager entityManager, Long workerId) {
         return entityManager.createQuery("FROM Worker w WHERE w.id = :workerId", Worker.class).setParameter("workerId", workerId).getSingleResult();
-    }
-
-    private void compareWorker(Worker expectedWorker, Worker worker) {
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(expectedWorker.getId(), worker.getId()),
-                () -> Assertions.assertEquals(expectedWorker.getName(), worker.getName()),
-                () -> Assertions.assertEquals(expectedWorker.getPesel(), worker.getPesel()),
-                () -> Assertions.assertEquals(expectedWorker.getSurname(), worker.getSurname()),
-                () -> Assertions.assertEquals(expectedWorker.getCar().getId(), worker.getCar().getId()),
-                () -> Assertions.assertEquals(expectedWorker.getCar().getNumberOfSeats(), worker.getCar().getNumberOfSeats()),
-                () -> Assertions.assertEquals(expectedWorker.getCar().getRegistrationNumber(), worker.getCar().getRegistrationNumber()),
-                () -> Assertions.assertEquals(expectedWorker.getCar().getWeight(), worker.getCar().getWeight()),
-                () -> Assertions.assertFalse(Hibernate.isInitialized(worker.getCar().getLog()))
-        );
     }
 }
