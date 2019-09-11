@@ -102,6 +102,65 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>jooq-codegen</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-maven-plugin</artifactId>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.jooq</groupId>
+                        <artifactId>jooq-codegen-maven</artifactId>
+                        <version>${jooq.version}</version>
+                        <executions>
+                            <execution>
+                                <id>generate-h2-jpa</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <jdbc>
+                                        <driver>org.h2.Driver</driver>
+                                        <url>jdbc:h2:mem:test/public</url>
+                                        <user></user>
+                                        <password></password>
+                                    </jdbc>
+                                    <generator>
+                                        <database>
+                                            <name>org.jooq.meta.h2.H2Database</name>
+                                            <includes>.*</includes>
+                                            <excludes></excludes>
+                                            <inputSchema>public</inputSchema>
+                                            <properties>
+                                                <property>
+                                                    <key>packages</key>
+                                                    <value>
+                                                        pl.kuba565.resttask.model
+                                                    </value>
+                                                </property>
+                                            </properties>
+                                            <includes>.*</includes>
+                                        </database>
+                                        <generate>
+                                        </generate>
+                                        <target>
+                                            <packageName>pl.kuba565.resttask.jooq</packageName>
+                                            <directory>src/main/java</directory>
+                                        </target>
+                                    </generator>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
     <build>
         <plugins>
             <plugin>
