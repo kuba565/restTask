@@ -22,11 +22,6 @@ public class CarRepositoryImpl extends GenericRepositoryImpl<Car> {
 
     @Override
     public Car findById(Long id) {
-//        EntityGraph entityGraph = entityManager.getEntityGraph("find-car");
-//        return entityManager.createNamedQuery("Car.findById", Car.class)
-//                .setParameter("id", id)
-//                .setHint("javax.persistence.fetchgraph", entityGraph)
-//                .getSingleResult();
         return entityManager.createNamedQuery("Car.findById", Car.class)
                 .setParameter("id", id)
                 .getSingleResult();
@@ -34,10 +29,6 @@ public class CarRepositoryImpl extends GenericRepositoryImpl<Car> {
 
     @Override
     public List<Car> findAll() {
-//        EntityGraph entityGraph = entityManager.getEntityGraph("find-car");
-//        return entityManager.createNamedQuery("Car.findAll", Car.class)
-//                .setHint("javax.persistence.fetchgraph", entityGraph)
-//                .getResultList();
         return entityManager.createNamedQuery("Car.findAll", Car.class)
                 .getResultList();
     }
