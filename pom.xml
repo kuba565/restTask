@@ -19,6 +19,7 @@
     <properties>
         <h2.version>1.4.193</h2.version>
         <java.version>11</java.version>
+        <jooq.version>3.12.1</jooq.version>
         <jupiter.api.version>5.3.1</jupiter.api.version>
         <lomobk.version>1.18.8</lomobk.version>
         <model.mapper.version>2.3.2</model.mapper.version>
@@ -41,6 +42,21 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+            <version>${jooq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-meta</artifactId>
+            <version>${jooq.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq-codegen</artifactId>
+            <version>${jooq.version}</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
