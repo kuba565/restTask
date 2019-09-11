@@ -112,6 +112,7 @@
                     <!--                        <artifactId>spring-boot-maven-plugin</artifactId>-->
                     <!--                    </plugin>-->
                     <plugin>
+                        <!--                   TODO:     https://github.com/vy/liquibase-jooq-demo/blob/master/pom.xml-->
                         <groupId>org.jooq</groupId>
                         <artifactId>jooq-codegen-maven</artifactId>
                         <version>${jooq.version}</version>
