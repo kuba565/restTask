@@ -16,4 +16,9 @@ public class RepositoryConfig {
     public WorkerRepositoryImpl workerRepositoryImpl(EntityManager entityManager) {
         return new WorkerRepositoryImpl(entityManager);
     }
+
+    @Bean
+    public JooqCarRepositoryImpl jooqCarRepositoryImpl(EntityManager entityManager) {
+        return new JooqCarRepositoryImpl(entityManager);
+    }
 }
