@@ -24,6 +24,5 @@ public class WorkerRepositoryImpl extends GenericRepositoryImpl<Worker> {
         return entityManager.createNamedQuery("Worker.findById", Worker.class)
                 .setParameter("id", id)
                 .getSingleResult();
-
     }
 }

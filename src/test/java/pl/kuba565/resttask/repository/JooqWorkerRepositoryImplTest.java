@@ -1,5 +1,6 @@
 package pl.kuba565.resttask.repository;
 
+import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +17,17 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static pl.kuba565.util.WorkerAssertionUtil.assertWorkerFetching;
-import static pl.kuba565.util.WorkerAssertionUtil.assertWorkersFetching;
+import static pl.kuba565.util.WorkerAssertionUtil.*;
 
-public class WorkerRepositoryImplTest extends AbstractTest {
+class JooqWorkerRepositoryImplTest extends AbstractTest {
     @Autowired
     private EntityManager entityManager;
 
     @Autowired
-    private WorkerRepositoryImpl workerRepository;
+    private DSLContext dslContext;
+
+    @Autowired
+    private JooqWorkerRepositoryImpl workerRepository;
 
     @Autowired
     private WorkerServiceImpl workerService;
@@ -39,7 +42,7 @@ public class WorkerRepositoryImplTest extends AbstractTest {
     public void init() {
         exampleWorkers = workerService.findAll();
         if (exampleWorkers.isEmpty()) {
-            workerService.create(new Worker(new Car(new Log("test")), "1337", "John", "Connor"));
+            workerService.create(new Worker(new Car(new Log("test"), 1, 1, "aa"), "1337", "John", "Connor"));
             exampleWorkers = workerService.findAll();
         }
         exampleWorker = exampleWorkers.get(0);
@@ -50,24 +53,29 @@ public class WorkerRepositoryImplTest extends AbstractTest {
     @Transactional
     public void shouldCreateWorker() {
         //given
-        final Worker worker = new Worker(new Car(new Log()), "12345678901", "John", "Hancock");
+        final Worker worker = new Worker(new Car(new Log(""), 1, 1, ""), "12345678901", "John", "Hancock");
 
         //when
         workerRepository.create(worker);
 
         //then
-        Long workerId = entityManager
+        workerId = entityManager
                 .createQuery("SELECT w.id FROM Worker w WHERE w.surname = :surname", Long.class)
                 .setParameter("surname", worker.getSurname())
                 .getSingleResult();
-        assertWorkerFetching(worker, workerRepository.findById(workerId));
+
+        assertWorkerFetchingWithoutLog(worker, entityManager
+                .createQuery("FROM Worker w WHERE w.id = :id", Worker.class)
+                .setParameter("id", workerId)
+                .getSingleResult()
+        );
     }
 
     @Test
     @Transactional
     public void shouldUpdateWorker() {
         //given
-        final Worker worker = new Worker(workerId, "12345678901", "aa", "TEST1", (new Car(new Log("test"))));
+        final Worker worker = new Worker(workerId, "12345678901", "aa", "TEST1");
 
         //when
         workerRepository.update(worker);
@@ -77,7 +85,7 @@ public class WorkerRepositoryImplTest extends AbstractTest {
                 .createQuery("SELECT w.id FROM Worker w WHERE w.surname = :surname", Long.class)
                 .setParameter("surname", worker.getSurname())
                 .getSingleResult();
-        assertWorkerFetching(worker, workerRepository.findById(workerId));
+        assertWorkerFetching(worker, workerService.findById(workerId));
     }
 
     @Test
@@ -95,7 +103,6 @@ public class WorkerRepositoryImplTest extends AbstractTest {
     public void shouldFindAllWorkersCarsAssignedWithoutLogField() {
         //when
         List<Worker> result = workerRepository.findAll();
-        entityManager.clear();
 
         //then
         assertAll(() -> assertWorkersFetching(exampleWorkers, result));
@@ -109,7 +116,6 @@ public class WorkerRepositoryImplTest extends AbstractTest {
 
         //when
         Worker result = workerRepository.findById(id);
-        entityManager.clear();
 
         //then
         assertAll(() -> assertWorkerFetching(exampleWorker, result));

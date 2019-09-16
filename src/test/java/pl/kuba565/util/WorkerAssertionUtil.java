@@ -18,6 +18,15 @@ public class WorkerAssertionUtil {
         );
     }
 
+    public static void assertWorkerFetchingWithoutLog(Worker expectedWorker, Worker comparedWorker) {
+        assertAll(
+                () -> assertNotNull(comparedWorker.getId()),
+                () -> assertEquals(expectedWorker.getName(), comparedWorker.getName()),
+                () -> assertEquals(expectedWorker.getPesel(), comparedWorker.getPesel()),
+                () -> assertEquals(expectedWorker.getSurname(), comparedWorker.getSurname())
+        );
+    }
+
     public static void assertWorkersFetching(List<Worker> expected, List<Worker> result) {
         assertAll(() -> {
             for (int i = 0; i < result.size(); i++) {
