@@ -53,7 +53,7 @@ class JooqWorkerRepositoryImplTest extends AbstractTest {
     @Transactional
     public void shouldCreateWorker() {
         //given
-        final Worker worker = new Worker(new Car(new Log(""), 1, 1, ""), "12345678901", "John", "Hancock");
+        final Worker worker = new Worker("12345678901", "John", "Hancock");
 
         //when
         workerRepository.create(worker);
@@ -80,11 +80,7 @@ class JooqWorkerRepositoryImplTest extends AbstractTest {
         //when
         workerRepository.update(worker);
 
-        //then
-        workerId = entityManager
-                .createQuery("SELECT w.id FROM Worker w WHERE w.surname = :surname", Long.class)
-                .setParameter("surname", worker.getSurname())
-                .getSingleResult();
+        //then;
         assertWorkerFetching(worker, workerService.findById(workerId));
     }
 

@@ -3,7 +3,6 @@ package pl.kuba565.resttask.repository;
 import org.jooq.DSLContext;
 import org.jooq.Record8;
 import org.jooq.Result;
-import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.resttask.model.Car;
 import pl.kuba565.resttask.model.Worker;
 
