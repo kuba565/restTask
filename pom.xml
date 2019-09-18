@@ -17,6 +17,8 @@
     <name>restTask</name>
 
     <properties>
+        <graphiql-spring-boot-starter.version>5.0.2</graphiql-spring-boot-starter.version>
+        <graphql-spring-boot-starter.version>5.0.2</graphql-spring-boot-starter.version>
         <h2.version>1.4.193</h2.version>
         <java.version>11</java.version>
         <jupiter.api.version>5.3.1</jupiter.api.version>
@@ -27,6 +29,21 @@
     </properties>
 
     <dependencies>
+        <dependency>
+        <groupId>com.graphql-java</groupId>
+        <artifactId>graphiql-spring-boot-starter</artifactId>
+        <version>${graphiql-spring-boot-starter.version}</version>
+    </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-spring-boot-starter</artifactId>
+            <version>${graphql-spring-boot-starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphql-java-tools</artifactId>
+            <version>5.2.4</version>
+        </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>

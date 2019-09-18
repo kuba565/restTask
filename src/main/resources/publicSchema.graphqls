@@ -1,0 +1,62 @@
+schema {
+    query: Query
+}
+
+type Query {
+    cars(
+        # get all cars
+        count: Int): [Car]
+
+    car(
+        # The id of the car you are interested in
+        id : ID!
+    ) : Car
+
+    workers(count: Int): [Worker]
+
+    worker(
+        # get all workers
+        id: ID!
+    ): Worker
+}
+
+# An entity
+interface BaseModel {
+    # The id of the entity.
+    id: ID!
+}
+
+# A vehicle.
+type Car implements BaseModel {
+    # The id of the car.
+    id: ID!
+    # The weight of the car.
+    weight: String!
+    # The number of seats of the car.
+    numberOfSeats: String!
+    # The registration number of the car.
+    registrationNumber: String!
+    # The log of the car.
+    log: Log
+}
+
+type Log implements BaseModel {
+    # The id of the log.
+    id: ID!
+    # The value of the log.
+    value: String!
+}
+
+# A person employed by the company.
+type Worker implements BaseModel {
+    # The id of the worker.
+    id: ID!
+    # The car of the worker.
+    car: Car!
+    # The pesel of the worker.
+    pesel: String!
+    # The name of the worker.
+    name: String!
+    # The surname of the worker.
+    surname: String!
+}
