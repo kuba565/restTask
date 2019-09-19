@@ -9,7 +9,6 @@
             <tableExists tableName="worker" schemaName="public"/>
         </not>
     </preConditions>
-
     <changeSet author="Jakub" id="1">
 
         <createTable tableName="log" schemaName="public">
@@ -57,57 +56,5 @@
                           columnName="id"
                           schemaName="public"
                           tableName="worker"/>
-
-        <!--        <insert tableName="log">-->
-        <!--            <column name="value" value="7465737431"/>-->
-        <!--        </insert>-->
-
-        <!--        <insert tableName="log">-->
-        <!--            <column name="value" value="7465737432"/>-->
-        <!--        </insert>-->
-
-        <!--        <insert tableName="log">-->
-        <!--            <column name="value" value="7465737433"/>-->
-        <!--        </insert>-->
-
-        <!--        <insert tableName="car">-->
-        <!--            <column name="weight" value="1500"/>-->
-        <!--            <column name="number_of_seats" value="5"/>-->
-        <!--            <column name="registration_number" value="PO6HH12"/>-->
-        <!--            <column name="log_id" value="1"/>-->
-        <!--        </insert>-->
-
-        <!--        <insert tableName="car">-->
-        <!--            <column name="weight" value="1500"/>-->
-        <!--            <column name="number_of_seats" value="5"/>-->
-        <!--            <column name="registration_number" value="PO6HH12"/>-->
-        <!--            <column name="log_id" value="2"/>-->
-        <!--        </insert>-->
-
-        <!--        <insert tableName="car">-->
-        <!--            <column name="weight" value="500"/>-->
-        <!--            <column name="number_of_seats" value="4"/>-->
-        <!--            <column name="registration_number" value="PO121TJ"/>-->
-        <!--            <column name="log_id" value="3"/>-->
-        <!--        </insert>-->
-
-        <!--        <insert tableName="worker">-->
-        <!--            <column name="car_id" value="2"/>-->
-        <!--            <column name="pesel" value="12345678901"/>-->
-        <!--            <column name="name" value="Jakub"/>-->
-        <!--            <column name="surname" value="Kąkolewski"/>-->
-        <!--        </insert>-->
-
-        <!--        <insert tableName="worker">-->
-        <!--            <column name="pesel" value="12345678902"/>-->
-        <!--            <column name="name" value="Adam"/>-->
-        <!--            <column name="surname" value="Nowak"/>-->
-        <!--        </insert>-->
-
-        <!--        <insert tableName="worker">-->
-        <!--            <column name="pesel" value="12342678902"/>-->
-        <!--            <column name="name" value="Marian"/>-->
-        <!--            <column name="surname" value="Nowak"/>-->
-        <!--        </insert>-->
     </changeSet>
 </databaseChangeLog>
