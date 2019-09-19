@@ -21,7 +21,7 @@ public class Car extends BaseModel {
     private Integer weight;
     private Integer numberOfSeats;
     private String registrationNumber;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Log log;
 
     public Car(Integer weight, Integer numberOfSeats, String registrationNumber) {

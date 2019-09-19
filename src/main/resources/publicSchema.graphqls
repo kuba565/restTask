@@ -3,21 +3,82 @@ schema {
 }
 
 type Query {
-    cars(
-        # get all cars
-        count: Int): [Car]
+    carDtos
+    # get all cars
+    : [CarDto]
 
-    car(
+    carDto(
         # The id of the car you are interested in
         id : ID!
-    ) : Car
+    ) : CarDto
 
-    workers(count: Int): [Worker]
+    workerDtos
+    # get all workers
+    : [WorkerDto]
 
-    worker(
-        # get all workers
+    workerDto(
+        # The id of the worker you are interested in
         id: ID!
-    ): Worker
+    ): WorkerDto
+}
+
+type Mutation {
+    writeCarDto(
+        # create new car
+        carDto: InputCarDto!): Boolean
+    updateCarDto(
+        # update car
+        carDto: InputCarDto!): Boolean
+    deleteCarDto(
+        # delete car
+        id: ID!): Boolean
+
+    writeWorkerDto(
+        # create new worker
+        workerDto: InputWorkerDto!): Boolean
+    updateWorkerDto(
+        # update worker
+        workerDto: InputWorkerDto!): Boolean
+    deleteWorkerDto(
+        # delete worker
+        id: ID!): Boolean
+}
+
+# a new worker
+input InputWorkerDto {
+    # The id of the worker.
+    id: ID
+    # The car of the worker.
+    carDto: InputCarDto!
+    # The pesel of the worker.
+    pesel: String!
+    # The name of the worker.
+    name: String!
+    # The surname of the worker.
+    surname: String!
+
+}
+
+# a new log
+input InputLogDto {
+    # The id of the log.
+    id: ID
+    # The value of the new log.
+    value: String!
+}
+
+# a new car
+input InputCarDto {
+    # The id of the car.
+    id: ID
+    # The weight of the new car.
+    weight: String!
+    # The number of seats of the new car.
+    numberOfSeats: String!
+    # The registration number of the new car.
+    registrationNumber: String!
+    # The log of the new car.
+    logDto: InputLogDto
 }
 
 # An entity
@@ -27,7 +88,7 @@ interface BaseModel {
 }
 
 # A vehicle.
-type Car implements BaseModel {
+type CarDto implements BaseModel {
     # The id of the car.
     id: ID!
     # The weight of the car.
@@ -37,10 +98,10 @@ type Car implements BaseModel {
     # The registration number of the car.
     registrationNumber: String!
     # The log of the car.
-    log: Log
+    logDto: LogDto
 }
 
-type Log implements BaseModel {
+type LogDto implements BaseModel {
     # The id of the log.
     id: ID!
     # The value of the log.
@@ -48,11 +109,11 @@ type Log implements BaseModel {
 }
 
 # A person employed by the company.
-type Worker implements BaseModel {
+type WorkerDto implements BaseModel {
     # The id of the worker.
     id: ID!
     # The car of the worker.
-    car: Car!
+    carDto: CarDto!
     # The pesel of the worker.
     pesel: String!
     # The name of the worker.

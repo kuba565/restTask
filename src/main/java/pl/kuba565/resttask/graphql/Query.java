@@ -1,35 +1,54 @@
 package pl.kuba565.resttask.graphql;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import pl.kuba565.resttask.dto.CarDto;
+import pl.kuba565.resttask.dto.WorkerDto;
 import pl.kuba565.resttask.model.Car;
 import pl.kuba565.resttask.model.Worker;
-import pl.kuba565.resttask.repository.CarRepositoryImpl;
-import pl.kuba565.resttask.repository.WorkerRepositoryImpl;
+import pl.kuba565.resttask.service.GenericService;
+import pl.kuba565.resttask.transformer.model.CarTransformerImpl;
+import pl.kuba565.resttask.transformer.model.WorkerTransformerImpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Query implements GraphQLQueryResolver {
-    private CarRepositoryImpl carRepository;
-    private WorkerRepositoryImpl workerRepository;
+    private GenericService<Car> carGenericService;
+    private GenericService<Worker> workerGenericService;
+    private CarTransformerImpl carTransformer;
+    private WorkerTransformerImpl workerTransformer;
 
-    public Query(CarRepositoryImpl carRepository, WorkerRepositoryImpl workerRepository) {
-        this.carRepository = carRepository;
-        this.workerRepository = workerRepository;
+    public Query(GenericService<Car> carGenericService,
+                 GenericService<Worker> workerGenericService,
+                 CarTransformerImpl carTransformer,
+                 WorkerTransformerImpl workerTransformer) {
+        this.workerGenericService = workerGenericService;
+        this.carGenericService = carGenericService;
+        this.carTransformer = carTransformer;
+        this.workerTransformer = workerTransformer;
     }
 
-    public List<Car> getCars(Integer count) {
-        return carRepository.findAll().subList(0, count);
+    public List<CarDto> getCarDtos() {
+        return carGenericService.findAll()
+                .stream()
+                .map(car -> carTransformer.apply(car))
+                .collect(Collectors.toList());
     }
 
-    public Car getCar(Long id) {
-        return carRepository.findById(id);
+    public CarDto getCarDto(Long id) {
+        return carTransformer.apply(carGenericService.findById(id));
     }
 
-    public List<Worker> getWorkers(Integer count) {
-        return workerRepository.findAll().subList(0, count);
+    public List<WorkerDto> getWorkerDtos() {
+        return workerGenericService.findAll()
+                .stream()
+                .map(worker -> workerTransformer.apply(worker))
+                .collect(Collectors.toList());
     }
 
-    public Worker getWorker(Long id) {
-        return workerRepository.findById(id);
+    public WorkerDto getWorkerDto(Long id) {
+        return workerTransformer.apply(
+                workerGenericService.findById(id)
+        );
     }
 }
