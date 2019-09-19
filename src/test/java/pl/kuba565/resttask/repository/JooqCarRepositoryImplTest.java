@@ -18,15 +18,15 @@ import static pl.kuba565.util.CarAssertionUtil.assertCarFetching;
 import static pl.kuba565.util.CarAssertionUtil.assertCarsFetching;
 
 @Transactional
-public class CarRepositoryImplTest extends AbstractTest {
+public class JooqCarRepositoryImplTest extends AbstractTest {
     @Autowired
     private EntityManager entityManager;
 
     @Autowired
-    private CarRepositoryImpl carRepository;
+    private JooqCarRepositoryImpl carRepository;
 
     @Autowired
-    private CarServiceImpl carServiceImpl;
+    private CarServiceImpl carService;
 
     private List<Car> exampleCars;
 
@@ -36,10 +36,10 @@ public class CarRepositoryImplTest extends AbstractTest {
 
     @BeforeEach
     public void init() {
-        exampleCars = carServiceImpl.findAll();
+        exampleCars = carService.findAll();
         if (exampleCars.isEmpty()) {
-            carServiceImpl.create(new Car(new Log("test"), 1221, 4, "1234"));
-            exampleCars = carServiceImpl.findAll();
+            carService.create(new Car(new Log("test"), 1221, 4, "1234"));
+            exampleCars = carService.findAll();
         }
         exampleCar = exampleCars.get(0);
         carId = exampleCar.getId();
@@ -58,7 +58,7 @@ public class CarRepositoryImplTest extends AbstractTest {
                 .createQuery("SELECT c.id FROM Car c WHERE c.registrationNumber = :registrationNumber", Long.class)
                 .setParameter("registrationNumber", newCar.getRegistrationNumber())
                 .getSingleResult();
-        assertCarFetching(newCar, carServiceImpl.findById(carId));
+        assertCarFetching(newCar, carService.findById(carId));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class CarRepositoryImplTest extends AbstractTest {
         final Long carId = carRepository.update(car).getId();
 
         //then
-        assertCarFetching(car, carServiceImpl.findById(carId));
+        assertCarFetching(car, carService.findById(carId));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class CarRepositoryImplTest extends AbstractTest {
         carRepository.deleteById(carId);
 
         //then
-        assertThrows(NoResultException.class, () -> carServiceImpl.findById(carId));
+        assertThrows(NoResultException.class, () -> carService.findById(carId));
     }
 
     @Test

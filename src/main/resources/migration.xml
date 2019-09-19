@@ -2,7 +2,7 @@
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
-    <preConditions>
+    <preConditions onFail="WARN">
         <not>
             <tableExists tableName="log" schemaName="public"/>
             <tableExists tableName="car" schemaName="public"/>
