@@ -1,7 +1,8 @@
-package pl.kuba565.resttask.service;
+package pl.kuba565.resttask.service.hibernate;
 
 import pl.kuba565.resttask.model.Car;
 import pl.kuba565.resttask.repository.GenericRepository;
+import pl.kuba565.resttask.service.GenericServiceImpl;
 import pl.kuba565.resttask.validator.GenericValidator;
 
 import java.util.List;

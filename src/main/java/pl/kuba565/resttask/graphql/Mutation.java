@@ -11,8 +11,8 @@ import pl.kuba565.resttask.transformer.dto.WorkerDtoTransformerImpl;
 
 public class Mutation implements GraphQLMutationResolver {
     private GenericService<Worker> workerGenericService;
-    private WorkerDtoTransformerImpl workerDtoTransformer;
     private GenericService<Car> carGenericService;
+    private WorkerDtoTransformerImpl workerDtoTransformer;
     private CarDtoTransformerImpl carDtoTransformer;
 
     public Mutation(GenericService<Worker> workerGenericService,

@@ -11,7 +11,7 @@ import pl.kuba565.resttask.exception.ValidationException;
 import pl.kuba565.resttask.model.Car;
 import pl.kuba565.resttask.model.Log;
 import pl.kuba565.resttask.model.Worker;
-import pl.kuba565.resttask.service.WorkerServiceImpl;
+import pl.kuba565.resttask.service.hibernate.WorkerServiceImpl;
 import pl.kuba565.resttask.transformer.model.WorkerTransformerImpl;
 
 import javax.persistence.EntityManager;

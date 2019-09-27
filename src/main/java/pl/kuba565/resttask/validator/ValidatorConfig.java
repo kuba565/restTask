@@ -2,8 +2,9 @@ package pl.kuba565.resttask.validator;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import pl.kuba565.resttask.repository.CarRepositoryImpl;
-import pl.kuba565.resttask.repository.WorkerRepositoryImpl;
+import pl.kuba565.resttask.repository.hibernate.CarRepositoryImpl;
+import pl.kuba565.resttask.repository.hibernate.UserRepositoryImpl;
+import pl.kuba565.resttask.repository.hibernate.WorkerRepositoryImpl;
 
 @Configuration
 public class ValidatorConfig {
@@ -15,5 +16,10 @@ public class ValidatorConfig {
     @Bean
     public WorkerValidator workerValidator(WorkerRepositoryImpl workerRepositoryImpl) {
         return new WorkerValidator(workerRepositoryImpl);
+    }
+
+    @Bean
+    public UserValidator userValidator(UserRepositoryImpl userRepository) {
+        return new UserValidator(userRepository);
     }
 }

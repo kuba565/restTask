@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pl.kuba565.AbstractTest;
 import pl.kuba565.resttask.model.Car;
 import pl.kuba565.resttask.model.Log;
-import pl.kuba565.resttask.service.CarServiceImpl;
+import pl.kuba565.resttask.repository.hibernate.CarRepositoryImpl;
+import pl.kuba565.resttask.service.hibernate.CarServiceImpl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;

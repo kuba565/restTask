@@ -8,9 +8,9 @@ import pl.kuba565.AbstractTest;
 import pl.kuba565.resttask.model.Car;
 import pl.kuba565.resttask.model.Log;
 import pl.kuba565.resttask.model.Worker;
-import pl.kuba565.resttask.repository.CarRepositoryImpl;
-import pl.kuba565.resttask.service.CarServiceImpl;
-import pl.kuba565.resttask.service.WorkerServiceImpl;
+import pl.kuba565.resttask.repository.hibernate.CarRepositoryImpl;
+import pl.kuba565.resttask.service.hibernate.CarServiceImpl;
+import pl.kuba565.resttask.service.hibernate.WorkerServiceImpl;
 
 import javax.persistence.EntityManager;
 import java.util.List;

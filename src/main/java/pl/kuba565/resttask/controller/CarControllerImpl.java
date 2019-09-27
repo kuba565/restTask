@@ -19,7 +19,7 @@ import static pl.kuba565.resttask.util.StringUtil.CAR;
 @RequestMapping(CAR)
 @Validated
 public class CarControllerImpl extends GenericControllerImpl<Car, CarDto> implements CarController {
-    private final GenericService<Car> carGenericService;
+    private GenericService<Car> carGenericService;
     private CarDtoTransformerImpl carDtoTransformer;
     private CarTransformerImpl carTransformer;
 
@@ -32,10 +32,12 @@ public class CarControllerImpl extends GenericControllerImpl<Car, CarDto> implem
         this.carTransformer = carTransformer;
     }
 
+    @Override
     public CarDto findById(@PathVariable(value = "id") @NotNull Long id) {
         return carTransformer.apply(carGenericService.findById(id));
     }
 
+    @Override
     public List<CarDto> findAll() {
         return carGenericService.findAll()
                 .stream()
@@ -43,16 +45,19 @@ public class CarControllerImpl extends GenericControllerImpl<Car, CarDto> implem
                 .collect(Collectors.toList());
     }
 
+    @Override
     public void create(@RequestBody CarDto carDto) {
         carGenericService.create(carDtoTransformer.apply(carDto));
     }
 
+    @Override
     public CarDto update(@RequestBody CarDto carDto) {
         return carTransformer.apply(
                 carGenericService.update(
                         carDtoTransformer.apply(carDto)));
     }
 
+    @Override
     public void deleteById(@PathVariable(value = "id") @NotNull Long id) {
         carGenericService.deleteById(id);
     }

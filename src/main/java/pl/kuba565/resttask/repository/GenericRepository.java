@@ -1,7 +1,5 @@
 package pl.kuba565.resttask.repository;
 
-import graphql.schema.DataFetchingEnvironment;
-
 import java.util.List;
 
 public interface GenericRepository<T> {

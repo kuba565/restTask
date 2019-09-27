@@ -4,12 +4,21 @@
 
     <preConditions onFail="WARN">
         <not>
+            <tableExists tableName="user" schemaName="public"/>
             <tableExists tableName="log" schemaName="public"/>
             <tableExists tableName="car" schemaName="public"/>
             <tableExists tableName="worker" schemaName="public"/>
         </not>
     </preConditions>
     <changeSet author="Jakub" id="1">
+
+        <createTable tableName="user" schemaName="public">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(20)"/>
+            <column name="password" type="varchar(60)"/>
+        </createTable>
 
         <createTable tableName="log" schemaName="public">
             <column name="id" type="bigint">
@@ -41,6 +50,11 @@
             <column name="name" type="varchar(30)"/>
             <column name="surname" type="varchar(30)"/>
         </createTable>
+
+        <addAutoIncrement columnDataType="int"
+                          columnName="id"
+                          schemaName="public"
+                          tableName="user"/>
 
         <addAutoIncrement columnDataType="int"
                           columnName="id"

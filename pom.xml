@@ -28,14 +28,21 @@
         <spring.boot.version>2.1.8.RELEASE</spring.boot.version>
         <swagger.version>2.9.2</swagger.version>
         <liquibase-maven-plugin.version>3.8.0</liquibase-maven-plugin.version>
+        <jbcrypt.version>0.4</jbcrypt.version>
+        <jjwt-api.version>0.10.7</jjwt-api.version>
     </properties>
 
     <dependencies>
         <dependency>
-        <groupId>com.graphql-java</groupId>
-        <artifactId>graphiql-spring-boot-starter</artifactId>
-        <version>${graphiql-spring-boot-starter.version}</version>
-    </dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.8.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.graphql-java</groupId>
+            <artifactId>graphiql-spring-boot-starter</artifactId>
+            <version>${graphiql-spring-boot-starter.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.graphql-java</groupId>
             <artifactId>graphql-spring-boot-starter</artifactId>
@@ -96,6 +103,11 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-maven-plugin</artifactId>
             <version>${liquibase-maven-plugin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>${jbcrypt.version}</version>
         </dependency>
         <dependency>
             <groupId>org.modelmapper</groupId>

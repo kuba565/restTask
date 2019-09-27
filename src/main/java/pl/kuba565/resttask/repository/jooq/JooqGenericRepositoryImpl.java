@@ -1,6 +1,7 @@
-package pl.kuba565.resttask.repository;
+package pl.kuba565.resttask.repository.jooq;
 
 import pl.kuba565.resttask.model.BaseModel;
+import pl.kuba565.resttask.repository.GenericRepository;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;

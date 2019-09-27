@@ -1,4 +1,4 @@
-package pl.kuba565.resttask.repository;
+package pl.kuba565.resttask.repository.hibernate;
 
 import pl.kuba565.resttask.model.Worker;
 

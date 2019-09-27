@@ -14,10 +14,12 @@ import org.jooq.impl.Internal;
 import pl.kuba565.resttask.jooq.tables.Car;
 import pl.kuba565.resttask.jooq.tables.Databasechangeloglock;
 import pl.kuba565.resttask.jooq.tables.Log;
+import pl.kuba565.resttask.jooq.tables.User;
 import pl.kuba565.resttask.jooq.tables.Worker;
 import pl.kuba565.resttask.jooq.tables.records.CarRecord;
 import pl.kuba565.resttask.jooq.tables.records.DatabasechangeloglockRecord;
 import pl.kuba565.resttask.jooq.tables.records.LogRecord;
+import pl.kuba565.resttask.jooq.tables.records.UserRecord;
 import pl.kuba565.resttask.jooq.tables.records.WorkerRecord;
 
 
@@ -41,6 +43,7 @@ public class Keys {
 
     public static final Identity<CarRecord, Integer> IDENTITY_CAR = Identities0.IDENTITY_CAR;
     public static final Identity<LogRecord, Integer> IDENTITY_LOG = Identities0.IDENTITY_LOG;
+    public static final Identity<UserRecord, Integer> IDENTITY_USER = Identities0.IDENTITY_USER;
     public static final Identity<WorkerRecord, Integer> IDENTITY_WORKER = Identities0.IDENTITY_WORKER;
 
     // -------------------------------------------------------------------------
@@ -50,6 +53,7 @@ public class Keys {
     public static final UniqueKey<CarRecord> PK_CAR = UniqueKeys0.PK_CAR;
     public static final UniqueKey<DatabasechangeloglockRecord> PK_DATABASECHANGELOGLOCK = UniqueKeys0.PK_DATABASECHANGELOGLOCK;
     public static final UniqueKey<LogRecord> PK_LOG = UniqueKeys0.PK_LOG;
+    public static final UniqueKey<UserRecord> PK_USER = UniqueKeys0.PK_USER;
     public static final UniqueKey<WorkerRecord> PK_WORKER = UniqueKeys0.PK_WORKER;
 
     // -------------------------------------------------------------------------
@@ -66,6 +70,7 @@ public class Keys {
     private static class Identities0 {
         public static Identity<CarRecord, Integer> IDENTITY_CAR = Internal.createIdentity(Car.CAR, Car.CAR.ID);
         public static Identity<LogRecord, Integer> IDENTITY_LOG = Internal.createIdentity(Log.LOG, Log.LOG.ID);
+        public static Identity<UserRecord, Integer> IDENTITY_USER = Internal.createIdentity(User.USER, User.USER.ID);
         public static Identity<WorkerRecord, Integer> IDENTITY_WORKER = Internal.createIdentity(Worker.WORKER, Worker.WORKER.ID);
     }
 
@@ -73,6 +78,7 @@ public class Keys {
         public static final UniqueKey<CarRecord> PK_CAR = Internal.createUniqueKey(Car.CAR, "PK_CAR", Car.CAR.ID);
         public static final UniqueKey<DatabasechangeloglockRecord> PK_DATABASECHANGELOGLOCK = Internal.createUniqueKey(Databasechangeloglock.DATABASECHANGELOGLOCK, "PK_DATABASECHANGELOGLOCK", Databasechangeloglock.DATABASECHANGELOGLOCK.ID);
         public static final UniqueKey<LogRecord> PK_LOG = Internal.createUniqueKey(Log.LOG, "PK_LOG", Log.LOG.ID);
+        public static final UniqueKey<UserRecord> PK_USER = Internal.createUniqueKey(User.USER, "PK_USER", User.USER.ID);
         public static final UniqueKey<WorkerRecord> PK_WORKER = Internal.createUniqueKey(Worker.WORKER, "PK_WORKER", Worker.WORKER.ID);
     }
 

@@ -12,7 +12,7 @@ import java.time.Instant;
 import java.util.concurrent.TimeUnit;
 
 @Aspect
-//@Component
+@Component
 public class LogAspect {
 
     private static final Logger LOG = LoggerFactory.getLogger(LogAspect.class);

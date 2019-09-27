@@ -13,6 +13,7 @@ import org.jooq.impl.Internal;
 import pl.kuba565.resttask.jooq.tables.Car;
 import pl.kuba565.resttask.jooq.tables.Databasechangeloglock;
 import pl.kuba565.resttask.jooq.tables.Log;
+import pl.kuba565.resttask.jooq.tables.User;
 import pl.kuba565.resttask.jooq.tables.Worker;
 
 
@@ -37,6 +38,7 @@ public class Indexes {
     public static final Index PRIMARY_KEY_2 = Indexes0.PRIMARY_KEY_2;
     public static final Index PRIMARY_KEY_D = Indexes0.PRIMARY_KEY_D;
     public static final Index PRIMARY_KEY_11 = Indexes0.PRIMARY_KEY_11;
+    public static final Index PRIMARY_KEY_27 = Indexes0.PRIMARY_KEY_27;
     public static final Index FK_CAR_INDEX_5 = Indexes0.FK_CAR_INDEX_5;
     public static final Index PRIMARY_KEY_5 = Indexes0.PRIMARY_KEY_5;
 
@@ -49,6 +51,7 @@ public class Indexes {
         public static Index PRIMARY_KEY_2 = Internal.createIndex("PRIMARY_KEY_2", Car.CAR, new OrderField[] { Car.CAR.ID }, true);
         public static Index PRIMARY_KEY_D = Internal.createIndex("PRIMARY_KEY_D", Databasechangeloglock.DATABASECHANGELOGLOCK, new OrderField[] { Databasechangeloglock.DATABASECHANGELOGLOCK.ID }, true);
         public static Index PRIMARY_KEY_11 = Internal.createIndex("PRIMARY_KEY_11", Log.LOG, new OrderField[] { Log.LOG.ID }, true);
+        public static Index PRIMARY_KEY_27 = Internal.createIndex("PRIMARY_KEY_27", User.USER, new OrderField[] { User.USER.ID }, true);
         public static Index FK_CAR_INDEX_5 = Internal.createIndex("FK_CAR_INDEX_5", Worker.WORKER, new OrderField[] { Worker.WORKER.CAR_ID }, false);
         public static Index PRIMARY_KEY_5 = Internal.createIndex("PRIMARY_KEY_5", Worker.WORKER, new OrderField[] { Worker.WORKER.ID }, true);
     }

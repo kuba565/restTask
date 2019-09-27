@@ -6,7 +6,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import pl.kuba565.AbstractTest;
 import pl.kuba565.resttask.model.Car;
-import pl.kuba565.resttask.repository.CarRepositoryImpl;
+import pl.kuba565.resttask.repository.hibernate.CarRepositoryImpl;
+import pl.kuba565.resttask.service.hibernate.CarServiceImpl;
 import pl.kuba565.resttask.validator.CarValidator;
 
 import static org.mockito.Mockito.times;

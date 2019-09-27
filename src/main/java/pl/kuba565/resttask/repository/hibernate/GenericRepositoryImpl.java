@@ -1,6 +1,7 @@
-package pl.kuba565.resttask.repository;
+package pl.kuba565.resttask.repository.hibernate;
 
 import pl.kuba565.resttask.model.BaseModel;
+import pl.kuba565.resttask.repository.GenericRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;

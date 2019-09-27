@@ -3,7 +3,7 @@ package pl.kuba565.resttask.validator;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 import pl.kuba565.resttask.model.Car;
-import pl.kuba565.resttask.repository.CarRepositoryImpl;
+import pl.kuba565.resttask.repository.hibernate.CarRepositoryImpl;
 import pl.kuba565.resttask.util.StringUtil;
 
 public class CarValidator implements GenericValidator<Car> {

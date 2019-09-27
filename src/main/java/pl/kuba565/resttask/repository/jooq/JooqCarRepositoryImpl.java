@@ -1,4 +1,4 @@
-package pl.kuba565.resttask.repository;
+package pl.kuba565.resttask.repository.jooq;
 
 import org.jooq.DSLContext;
 import org.jooq.Record3;

@@ -18,6 +18,7 @@ import pl.kuba565.resttask.jooq.tables.Car;
 import pl.kuba565.resttask.jooq.tables.Databasechangelog;
 import pl.kuba565.resttask.jooq.tables.Databasechangeloglock;
 import pl.kuba565.resttask.jooq.tables.Log;
+import pl.kuba565.resttask.jooq.tables.User;
 import pl.kuba565.resttask.jooq.tables.Worker;
 
 
@@ -34,7 +35,7 @@ import pl.kuba565.resttask.jooq.tables.Worker;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -1185182537;
+    private static final long serialVersionUID = -903315501;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -60,6 +61,11 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.LOG</code>.
      */
     public final Log LOG = Log.LOG;
+
+    /**
+     * The table <code>PUBLIC.USER</code>.
+     */
+    public final User USER = User.USER;
 
     /**
      * The table <code>PUBLIC.WORKER</code>.
@@ -92,6 +98,7 @@ public class Public extends SchemaImpl {
             Databasechangelog.DATABASECHANGELOG,
             Databasechangeloglock.DATABASECHANGELOGLOCK,
             Log.LOG,
+            User.USER,
             Worker.WORKER);
     }
 }

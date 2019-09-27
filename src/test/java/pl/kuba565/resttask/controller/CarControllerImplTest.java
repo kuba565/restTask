@@ -9,7 +9,7 @@ import pl.kuba565.resttask.dto.LogDto;
 import pl.kuba565.resttask.exception.ValidationException;
 import pl.kuba565.resttask.model.Car;
 import pl.kuba565.resttask.model.Log;
-import pl.kuba565.resttask.service.CarServiceImpl;
+import pl.kuba565.resttask.service.hibernate.CarServiceImpl;
 import pl.kuba565.resttask.transformer.model.CarTransformerImpl;
 
 import javax.persistence.EntityManager;

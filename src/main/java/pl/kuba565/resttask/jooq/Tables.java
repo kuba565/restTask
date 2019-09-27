@@ -10,6 +10,7 @@ import pl.kuba565.resttask.jooq.tables.Car;
 import pl.kuba565.resttask.jooq.tables.Databasechangelog;
 import pl.kuba565.resttask.jooq.tables.Databasechangeloglock;
 import pl.kuba565.resttask.jooq.tables.Log;
+import pl.kuba565.resttask.jooq.tables.User;
 import pl.kuba565.resttask.jooq.tables.Worker;
 
 
@@ -45,6 +46,11 @@ public class Tables {
      * The table <code>PUBLIC.LOG</code>.
      */
     public static final Log LOG = Log.LOG;
+
+    /**
+     * The table <code>PUBLIC.USER</code>.
+     */
+    public static final User USER = User.USER;
 
     /**
      * The table <code>PUBLIC.WORKER</code>.
