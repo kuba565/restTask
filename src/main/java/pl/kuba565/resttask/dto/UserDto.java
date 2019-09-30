@@ -10,9 +10,9 @@ import lombok.*;
 public class UserDto extends BaseDto {
     private Long id;
     private String name;
-    private char[] password;
+    private String password;
 
-    public UserDto(String name, char[] password) {
+    public UserDto(String name, String password) {
         this.name = name;
         this.password = password;
     }

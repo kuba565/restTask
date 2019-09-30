@@ -19,9 +19,9 @@ public class User extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private char[] password;
+    private String password;
 
-    public User(String name, char[] password) {
+    public User(String name, String password) {
         this.name = name;
         this.password = password;
     }

@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Profile;
 import pl.kuba565.resttask.repository.jooq.JooqCarRepositoryImpl;
 import pl.kuba565.resttask.repository.jooq.JooqUserRepositoryImpl;
 import pl.kuba565.resttask.repository.jooq.JooqWorkerRepositoryImpl;
+import pl.kuba565.resttask.service.UserService;
 import pl.kuba565.resttask.service.hibernate.CarServiceImpl;
-import pl.kuba565.resttask.service.hibernate.UserServiceImpl;
 import pl.kuba565.resttask.service.hibernate.WorkerServiceImpl;
 import pl.kuba565.resttask.validator.CarValidator;
 import pl.kuba565.resttask.validator.UserValidator;
@@ -27,7 +27,7 @@ public class JooqServiceConfig {
     }
 
     @Bean
-    public UserServiceImpl userService(JooqUserRepositoryImpl userRepository, UserValidator userValidator) {
-        return new UserServiceImpl(userRepository, userValidator);
+    public UserService userService(JooqUserRepositoryImpl userRepository, UserValidator userValidator) {
+        return new JooqUserServiceImpl(userRepository, userValidator);
     }
 }

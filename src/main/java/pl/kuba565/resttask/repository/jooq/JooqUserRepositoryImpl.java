@@ -23,7 +23,7 @@ public class JooqUserRepositoryImpl extends JooqGenericRepositoryImpl<User> {
     public User update(User entity) {
         dslContext.update(USER)
                 .set(USER.NAME, entity.getName())
-                .set(USER.PASSWORD, Arrays.toString(entity.getPassword()))
+                .set(USER.PASSWORD, entity.getPassword())
                 .where(USER.ID.eq(Math.toIntExact(entity.getId())))
                 .execute();
         return findById(entity.getId());
@@ -33,7 +33,7 @@ public class JooqUserRepositoryImpl extends JooqGenericRepositoryImpl<User> {
     public void create(User entity) {
         dslContext.insertInto(USER,
                 USER.NAME, USER.PASSWORD)
-                .values(entity.getName(), Arrays.toString(entity.getPassword()))
+                .values(entity.getName(), String.valueOf(entity.getPassword()))
                 .execute();
     }
 
@@ -60,7 +60,7 @@ public class JooqUserRepositoryImpl extends JooqGenericRepositoryImpl<User> {
             String userName = result.getValue(i, USER.NAME);
             String userPassword = result.getValue(i, USER.PASSWORD);
 
-            User user = new User(userId.longValue(), userName, userPassword.toCharArray());
+            User user = new User(userId.longValue(), userName, userPassword);
 
             users.add(user);
         }
@@ -86,6 +86,7 @@ public class JooqUserRepositoryImpl extends JooqGenericRepositoryImpl<User> {
                         USER.PASSWORD
                 )
                 .from(USER)
+                .where(USER.ID.eq(Math.toIntExact(id)))
                 .fetch();
 
         if (result.isEmpty()) {
@@ -96,6 +97,28 @@ public class JooqUserRepositoryImpl extends JooqGenericRepositoryImpl<User> {
         String userName = result.getValue(0, USER.NAME);
         String userPassword = result.getValue(0, USER.PASSWORD);
 
-        return new User(userId.longValue(), userName, userPassword.toCharArray());
+        return new User(userId.longValue(), userName, userPassword);
+    }
+
+    public User findByName(String name) {
+        Result<Record3<Integer, String, String>> result = dslContext
+                .select(
+                        USER.ID,
+                        USER.NAME,
+                        USER.PASSWORD
+                )
+                .from(USER)
+                .where(USER.NAME.eq(name))
+                .fetch();
+
+        if (result.isEmpty()) {
+            throw new NoResultException();
+        }
+
+        Integer userId = result.getValue(0, USER.ID);
+        String userName = result.getValue(0, USER.NAME);
+        String userPassword = result.getValue(0, USER.PASSWORD);
+
+        return new User(userId.longValue(), userName, userPassword);
     }
 }

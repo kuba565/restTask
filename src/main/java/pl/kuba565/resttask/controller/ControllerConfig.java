@@ -6,7 +6,7 @@ import pl.kuba565.resttask.model.Car;
 import pl.kuba565.resttask.model.User;
 import pl.kuba565.resttask.model.Worker;
 import pl.kuba565.resttask.service.GenericService;
-import pl.kuba565.resttask.service.hibernate.UserServiceImpl;
+import pl.kuba565.resttask.service.UserService;
 import pl.kuba565.resttask.transformer.dto.CarDtoTransformerImpl;
 import pl.kuba565.resttask.transformer.dto.UserDtoTransformerImpl;
 import pl.kuba565.resttask.transformer.dto.WorkerDtoTransformerImpl;
@@ -31,7 +31,7 @@ public class ControllerConfig {
     }
 
     @Bean
-    public AuthController authController(UserServiceImpl userService) {
+    public AuthController authController(UserService userService) {
         return new AuthController(userService);
     }
 
