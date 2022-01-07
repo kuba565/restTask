@@ -17,7 +17,7 @@
     <name>restTask</name>
 
     <properties>
-        <h2.version>1.4.193</h2.version>
+        <h2.version>2.0.206</h2.version>
         <java.version>11</java.version>
         <jupiter.api.version>5.3.1</jupiter.api.version>
         <lomobk.version>1.18.8</lomobk.version>
