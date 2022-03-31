@@ -22,7 +22,7 @@
         <jupiter.api.version>5.3.1</jupiter.api.version>
         <lomobk.version>1.18.8</lomobk.version>
         <model.mapper.version>2.3.2</model.mapper.version>
-        <spring.boot.version>2.1.8.RELEASE</spring.boot.version>
+        <spring.boot.version>2.5.12</spring.boot.version>
         <swagger.version>2.9.2</swagger.version>
     </properties>
 
